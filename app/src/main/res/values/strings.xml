@@ -1,0 +1,8 @@
+<resources>
+    <string name="app_name">Payment App</string>
+    <string name="hello_blank_fragment">Hello blank fragment</string>
+    <string name="no_text">No text available</string>
+    <string name="loading">Loading…</string>
+    <string name="video_text">See video</string>
+
+</resources>
