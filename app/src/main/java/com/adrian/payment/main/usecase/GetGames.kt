@@ -3,11 +3,8 @@ package com.adrian.payment.main.usecase
 import com.adrian.payment.main.datasource.RunsDataSource
 import com.adrian.payment.main.domain.model.GameInfo
 import io.reactivex.Single
-import javax.inject.Inject
-import javax.inject.Singleton
 
-@Singleton
-class GetGames @Inject constructor(private val runsDataSource: RunsDataSource) {
+class GetGames(private val runsDataSource: RunsDataSource) {
 
     var offset: Int = 0
 

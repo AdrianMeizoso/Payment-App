@@ -6,6 +6,7 @@ import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import androidx.fragment.app.Fragment
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProviders
@@ -14,17 +15,17 @@ import com.adrian.payment.common.formattedTime
 import com.adrian.payment.common.setImageUrl
 import com.adrian.payment.main.MainViewModel
 import com.adrian.payment.main.MainViewModelFactory
-import dagger.android.support.DaggerFragment
 import kotlinx.android.synthetic.main.fragment_detail.*
-import javax.inject.Inject
+import org.kodein.di.KodeinAware
+import org.kodein.di.android.x.closestKodein
+import org.kodein.di.generic.instance
 
-class DetailFragment : DaggerFragment() {
+class DetailFragment : Fragment(), KodeinAware {
 
-    @Inject
-    lateinit var mainViewModelFactory: MainViewModelFactory
+    override val kodein by closestKodein()
 
+    private val mainViewModelFactory: MainViewModelFactory by instance()
     lateinit var mainViewModel: MainViewModel
-
     private var videoLink: String = ""
 
     override fun onActivityCreated(savedInstanceState: Bundle?) {
@@ -37,21 +38,25 @@ class DetailFragment : DaggerFragment() {
 
         initAttributes()
         setVideoButtonListener()
-        setObservers()
 
         val gameId = arguments?.getString("gameId")
         val gamePos = arguments?.getInt("position")
 
-        gameId?.let { mainViewModel.getSpeedRunByGameId(it) }
+        mainViewModel.runData ?: run {
+            mainViewModel.runData = MutableLiveData()
+            mainViewModel.userData = MutableLiveData()
+            gameId?.let { mainViewModel.getSpeedRunByGameId(it) }
 
-        val game = gamePos?.let { mainViewModel.getGameByPos(it) }
-        game_name.text = game?.names?.international ?: getString(R.string.no_text)
-        game_cover.setImageUrl(game?.assets?.coverLarge?.uri)
+            val game = gamePos?.let { mainViewModel.getGameByPos(it) }
+            game_name.text = game?.names?.international ?: getString(R.string.no_text)
+            game_cover.setImageUrl(game?.assets?.coverLarge?.uri)
+        }
+
+        setObservers()
     }
 
     private fun initAttributes() {
-        mainViewModel.runData = MutableLiveData()
-        mainViewModel.userData = MutableLiveData()
+        //mainViewModel.reset()
         videoLink = ""
         game_name.text = getString(R.string.loading)
         user_name.text = getString(R.string.loading)
@@ -67,7 +72,7 @@ class DetailFragment : DaggerFragment() {
     //Private methods
 
     private fun setObservers() {
-        mainViewModel.runData.observe(this, Observer {
+        mainViewModel.runData?.observe(this, Observer {
             run_time.text = it.times?.primary_t?.formattedTime ?: getString(R.string.no_text)
 
             it.videos?.links?.get(0)?.uri?.let {videoLinkData ->
@@ -80,7 +85,7 @@ class DetailFragment : DaggerFragment() {
             } ?: run { user_name.text = getString(R.string.no_text) }
         })
 
-        mainViewModel.userData.observe(this, Observer {
+        mainViewModel.userData?.observe(this, Observer {
             user_name.text = it.names.international ?: getString(R.string.no_text)
         })
     }
@@ -96,5 +101,10 @@ class DetailFragment : DaggerFragment() {
 
             if (isIntentSafe) startActivity(videoIntent)
         }
+    }
+
+    override fun onDestroy() {
+        mainViewModel.reset()
+        super.onDestroy()
     }
 }

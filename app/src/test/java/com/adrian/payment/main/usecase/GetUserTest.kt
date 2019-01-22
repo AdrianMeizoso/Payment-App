@@ -1,7 +1,9 @@
 package com.adrian.payment.main.usecase
 
 import com.adrian.payment.main.datasource.RunsDataSource
-import com.adrian.payment.main.domain.model.*
+import com.adrian.payment.main.domain.model.UserData
+import com.adrian.payment.main.domain.model.UserNames
+import com.adrian.payment.main.domain.model.UserResponse
 import io.reactivex.Single
 import io.reactivex.observers.TestObserver
 import org.hamcrest.core.Is.`is`

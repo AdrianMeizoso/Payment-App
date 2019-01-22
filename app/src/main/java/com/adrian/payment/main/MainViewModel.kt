@@ -20,8 +20,8 @@ class MainViewModel(getGames: GetGames,
                     private val getUser: GetUser) : BaseViewModel() {
 
     val gamesList: LiveData<PagedList<GameInfo>>
-    var runData: MutableLiveData<RunData> = MutableLiveData()
-    var userData: MutableLiveData<UserData> = MutableLiveData()
+    var runData: MutableLiveData<RunData>? = null
+    var userData: MutableLiveData<UserData>? = null
 
     var position: Int = 0
 
@@ -49,7 +49,7 @@ class MainViewModel(getGames: GetGames,
             .subscribeOn(Schedulers.io())
             .observeOn(AndroidSchedulers.mainThread())
             .subscribe { runDataInfo, _: Throwable? ->
-                runData.value = runDataInfo ?: return@subscribe
+                runData?.value = runDataInfo ?: return@subscribe
         })
     }
 
@@ -58,7 +58,12 @@ class MainViewModel(getGames: GetGames,
             .subscribeOn(Schedulers.io())
             .observeOn(AndroidSchedulers.mainThread())
             .subscribe { userDataInfo, _: Throwable? ->
-                userData.value = userDataInfo ?: return@subscribe
+                userData?.value = userDataInfo ?: return@subscribe
             })
+    }
+
+    fun reset() {
+        runData = null
+        userData = null
     }
 }

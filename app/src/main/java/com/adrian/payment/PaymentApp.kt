@@ -1,21 +1,15 @@
 package com.adrian.payment
 
-import com.adrian.payment.common.injection.ApplicationComponent
-import com.adrian.payment.common.injection.DaggerApplicationComponent
-import dagger.android.AndroidInjector
-import dagger.android.DaggerApplication
+import android.app.Application
+import com.adrian.payment.common.injection.appModule
+import com.adrian.payment.main.module.mainModule
+import org.kodein.di.Kodein
+import org.kodein.di.KodeinAware
 
-class PaymentApp : DaggerApplication() {
+class PaymentApp : Application(), KodeinAware {
 
-    private val applicationComponent: ApplicationComponent by lazy {
-        DaggerApplicationComponent
-                .builder()
-                .application(this)
-                .build()
-    }
-
-    override fun applicationInjector(): AndroidInjector<out DaggerApplication> {
-        applicationComponent.inject(this)
-        return applicationComponent
+    override val kodein = Kodein.lazy {
+        import(appModule)
+        import(mainModule)
     }
 }

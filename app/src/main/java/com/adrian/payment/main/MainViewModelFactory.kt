@@ -5,9 +5,8 @@ import androidx.lifecycle.ViewModelProvider
 import com.adrian.payment.main.usecase.GetGames
 import com.adrian.payment.main.usecase.GetSpeedRun
 import com.adrian.payment.main.usecase.GetUser
-import javax.inject.Inject
 
-class MainViewModelFactory @Inject constructor (
+class MainViewModelFactory (
         private val getGames: GetGames,
         private val getSpeedRun: GetSpeedRun,
         private val getUser: GetUser) : ViewModelProvider.Factory {
