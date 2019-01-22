@@ -1,4 +1,4 @@
-package com.adrian.payment.main
+package com.adrian.payment.main.domain.viewmodel
 
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.ViewModelProvider

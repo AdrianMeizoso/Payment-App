@@ -7,10 +7,11 @@ import android.view.ViewGroup
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProviders
-import androidx.recyclerview.widget.GridLayoutManager
+import androidx.recyclerview.widget.LinearLayoutManager
+import androidx.recyclerview.widget.RecyclerView
 import com.adrian.payment.R
-import com.adrian.payment.main.MainViewModel
-import com.adrian.payment.main.MainViewModelFactory
+import com.adrian.payment.main.domain.viewmodel.MainViewModel
+import com.adrian.payment.main.domain.viewmodel.MainViewModelFactory
 import com.adrian.payment.main.domain.GamesAdapter
 import kotlinx.android.synthetic.main.fragment_list.*
 import org.kodein.di.KodeinAware
@@ -42,7 +43,7 @@ class ListFragment : Fragment(), KodeinAware {
     //Private methods
 
     private fun initGamesRecycler() {
-        val linearLayoutManager = GridLayoutManager(context, 2)
+        val linearLayoutManager = LinearLayoutManager(context, RecyclerView.VERTICAL, false)
         val gamesAdapter = GamesAdapter()
         games_recycler.layoutManager = linearLayoutManager
         games_recycler.adapter = gamesAdapter

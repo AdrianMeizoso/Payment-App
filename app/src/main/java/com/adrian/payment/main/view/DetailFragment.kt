@@ -13,8 +13,8 @@ import androidx.lifecycle.ViewModelProviders
 import com.adrian.payment.R
 import com.adrian.payment.common.formattedTime
 import com.adrian.payment.common.setImageUrl
-import com.adrian.payment.main.MainViewModel
-import com.adrian.payment.main.MainViewModelFactory
+import com.adrian.payment.main.domain.viewmodel.MainViewModel
+import com.adrian.payment.main.domain.viewmodel.MainViewModelFactory
 import kotlinx.android.synthetic.main.fragment_detail.*
 import org.kodein.di.KodeinAware
 import org.kodein.di.android.x.closestKodein

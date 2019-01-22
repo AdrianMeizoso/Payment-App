@@ -11,6 +11,11 @@ fun ImageView.setImageUrl(url: String?) {
     GlideApp.with(context).load(url).placeholder(R.drawable.ic_sand_watch).into(this)
 }
 
+@BindingAdapter("circleImageUrl")
+fun ImageView.setCircleImageUrl(url: String?) {
+    GlideApp.with(context).load(url).circleCrop().placeholder(R.drawable.ic_sand_watch).into(this)
+}
+
 val String.formattedTime: String? get() {
     val timeSplit = this
         .substringAfter("PT")

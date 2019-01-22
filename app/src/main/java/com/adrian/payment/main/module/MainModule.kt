@@ -1,6 +1,6 @@
 package com.adrian.payment.main.module
 
-import com.adrian.payment.main.MainViewModelFactory
+import com.adrian.payment.main.domain.viewmodel.MainViewModelFactory
 import com.adrian.payment.main.usecase.GetGames
 import com.adrian.payment.main.usecase.GetSpeedRun
 import com.adrian.payment.main.usecase.GetUser
@@ -15,5 +15,5 @@ val mainModule = Kodein.Module("Main") {
     bind() from singleton { GetSpeedRun(instance()) }
     bind() from singleton { GetUser(instance()) }
 
-    bind() from provider { MainViewModelFactory(instance(),instance(),instance()) }
+    bind() from provider { MainViewModelFactory(instance(), instance(), instance()) }
 }

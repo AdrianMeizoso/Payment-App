@@ -1,4 +1,4 @@
-package com.adrian.payment.main
+package com.adrian.payment.main.domain.viewmodel
 
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
