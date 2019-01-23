@@ -2,6 +2,7 @@ package com.adrian.payment.common.injection
 
 import com.adrian.payment.common.injection.Url.BASE_URL
 import com.adrian.payment.contacts.datasource.ContactsDeviceDataSource
+import com.adrian.payment.contacts.datasource.HeroesApiDataSource
 import com.adrian.payment.contacts.datasource.RunsApiDataSource
 import com.adrian.payment.contacts.repository.ContactsRepository
 import com.adrian.payment.contacts.repository.RunsRepository
@@ -16,7 +17,8 @@ import retrofit2.adapter.rxjava2.RxJava2CallAdapterFactory
 import retrofit2.converter.moshi.MoshiConverterFactory
 
 object Url {
-    const val BASE_URL = "http://www.speedrun.com/api/v1/"
+    //const val BASE_URL = "http://www.speedrun.com/api/v1/"
+    const val BASE_URL = "http://gateway.marvel.com/v1/public/"
 }
 
 val appModule = Kodein.Module("App") {
@@ -31,8 +33,10 @@ val appModule = Kodein.Module("App") {
                 .build()
     }
     bind() from singleton { Moshi.Builder().build()}
-    bind() from singleton {instance<Retrofit>().create(RunsApiDataSource::class.java)}
+    bind() from singleton { instance<Retrofit>().create(RunsApiDataSource::class.java)}
     bind() from singleton { RunsRepository(instance()) }
+
     bind() from singleton { ContactsDeviceDataSource(instance()) }
-    bind() from singleton { ContactsRepository(instance()) }
+    bind() from singleton { instance<Retrofit>().create(HeroesApiDataSource::class.java) }
+    bind() from singleton { ContactsRepository(instance(), instance()) }
 }

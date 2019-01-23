@@ -33,22 +33,18 @@ class ContactsDeviceDataSource(val context: Context) {
                                 val phoneNumValue = cursorPhone.getString(
                                         cursorPhone.getColumnIndex(ContactsContract.CommonDataKinds.Phone.NUMBER))
 
-                                if (displayPhotoUri.isNotBlank()) {
                                     contactsList.add(Contact(
                                             name,
                                             phoneNumValue,
                                             displayPhotoUri
                                     ))
-                                }
                             }
                         } else {
-                            if (displayPhotoUri.isNotBlank()) {
                                 contactsList.add(Contact(
                                         name,
                                         null,
                                         displayPhotoUri
                                 ))
-                            }
                         }
                         cursorPhone.close()
                     }

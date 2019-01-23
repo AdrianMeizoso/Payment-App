@@ -11,17 +11,15 @@ import com.adrian.payment.contacts.domain.model.Contact
 import com.adrian.payment.contacts.domain.model.GameInfo
 import com.adrian.payment.contacts.domain.model.RunData
 import com.adrian.payment.contacts.domain.model.UserData
-import com.adrian.payment.contacts.usecase.GetDeviceContacts
-import com.adrian.payment.contacts.usecase.GetGames
-import com.adrian.payment.contacts.usecase.GetSpeedRun
-import com.adrian.payment.contacts.usecase.GetUser
+import com.adrian.payment.contacts.usecase.*
 import io.reactivex.android.schedulers.AndroidSchedulers
 import io.reactivex.schedulers.Schedulers
 
 class MainViewModel(getGames: GetGames,
                     private val getSpeedRun: GetSpeedRun,
                     private val getUser: GetUser,
-                    getDeviceContacts: GetDeviceContacts) : BaseViewModel() {
+                    getDeviceContacts: GetDeviceContacts,
+                    getMarvelContacts: GetMarvelContacts) : BaseViewModel() {
 
     val gamesList: LiveData<PagedList<GameInfo>>
     var runData: MutableLiveData<RunData>? = null
@@ -44,7 +42,15 @@ class MainViewModel(getGames: GetGames,
         val sourceFactory = GamesPagingDataSourceFactory(disposables, getGames)
         gamesList = LivePagedListBuilder(sourceFactory, pagedListConfig).build()
 
-        disposables.add(getDeviceContacts.execute()
+        /*disposables.add(getDeviceContacts.execute()
+                .subscribeOn(Schedulers.io())
+                .observeOn(AndroidSchedulers.mainThread())
+                .subscribe { contacts, _: Throwable? ->
+                    Log.v("CERDO", "Pintamos contactos: $contacts")
+                    contactsData.value = contacts
+                })*/
+
+        disposables.add(getMarvelContacts.execute()
                 .subscribeOn(Schedulers.io())
                 .observeOn(AndroidSchedulers.mainThread())
                 .subscribe { contacts, _: Throwable? ->
