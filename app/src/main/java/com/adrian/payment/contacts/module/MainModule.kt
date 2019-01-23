@@ -1,6 +1,7 @@
 package com.adrian.payment.contacts.module
 
 import com.adrian.payment.contacts.domain.viewmodel.MainViewModelFactory
+import com.adrian.payment.contacts.usecase.GetDeviceContacts
 import com.adrian.payment.contacts.usecase.GetGames
 import com.adrian.payment.contacts.usecase.GetSpeedRun
 import com.adrian.payment.contacts.usecase.GetUser
@@ -14,6 +15,7 @@ val mainModule = Kodein.Module("Main") {
     bind() from singleton { GetGames(instance()) }
     bind() from singleton { GetSpeedRun(instance()) }
     bind() from singleton { GetUser(instance()) }
+    bind() from singleton { GetDeviceContacts(instance())}
 
-    bind() from provider { MainViewModelFactory(instance(), instance(), instance()) }
+    bind() from provider { MainViewModelFactory(instance(), instance(), instance(), instance()) }
 }

@@ -1,14 +1,17 @@
 package com.adrian.payment.contacts.domain.viewmodel
 
+import android.util.Log
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.paging.LivePagedListBuilder
 import androidx.paging.PagedList
 import com.adrian.payment.common.BaseViewModel
 import com.adrian.payment.contacts.domain.GamesPagingDataSourceFactory
+import com.adrian.payment.contacts.domain.model.Contact
 import com.adrian.payment.contacts.domain.model.GameInfo
 import com.adrian.payment.contacts.domain.model.RunData
 import com.adrian.payment.contacts.domain.model.UserData
+import com.adrian.payment.contacts.usecase.GetDeviceContacts
 import com.adrian.payment.contacts.usecase.GetGames
 import com.adrian.payment.contacts.usecase.GetSpeedRun
 import com.adrian.payment.contacts.usecase.GetUser
@@ -17,11 +20,14 @@ import io.reactivex.schedulers.Schedulers
 
 class MainViewModel(getGames: GetGames,
                     private val getSpeedRun: GetSpeedRun,
-                    private val getUser: GetUser) : BaseViewModel() {
+                    private val getUser: GetUser,
+                    getDeviceContacts: GetDeviceContacts) : BaseViewModel() {
 
     val gamesList: LiveData<PagedList<GameInfo>>
     var runData: MutableLiveData<RunData>? = null
     var userData: MutableLiveData<UserData>? = null
+
+    val contactsData: MutableLiveData<List<Contact>> = MutableLiveData()
 
     var position: Int = 0
 
@@ -37,6 +43,14 @@ class MainViewModel(getGames: GetGames,
     init {
         val sourceFactory = GamesPagingDataSourceFactory(disposables, getGames)
         gamesList = LivePagedListBuilder(sourceFactory, pagedListConfig).build()
+
+        disposables.add(getDeviceContacts.execute()
+                .subscribeOn(Schedulers.io())
+                .observeOn(AndroidSchedulers.mainThread())
+                .subscribe { contacts, _: Throwable? ->
+                    Log.v("CERDO", "Pintamos contactos: $contacts")
+                    contactsData.value = contacts
+                })
     }
 
     fun getGameByPos(gameId: Int): GameInfo? {

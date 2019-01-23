@@ -2,6 +2,7 @@ package com.adrian.payment.contacts.domain.viewmodel
 
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.ViewModelProvider
+import com.adrian.payment.contacts.usecase.GetDeviceContacts
 import com.adrian.payment.contacts.usecase.GetGames
 import com.adrian.payment.contacts.usecase.GetSpeedRun
 import com.adrian.payment.contacts.usecase.GetUser
@@ -9,11 +10,12 @@ import com.adrian.payment.contacts.usecase.GetUser
 class MainViewModelFactory (
         private val getGames: GetGames,
         private val getSpeedRun: GetSpeedRun,
-        private val getUser: GetUser) : ViewModelProvider.Factory {
+        private val getUser: GetUser,
+        private val getDeviceContacts: GetDeviceContacts) : ViewModelProvider.Factory {
 
     override fun <T : ViewModel?> create(modelClass: Class<T>): T {
         if (modelClass.isAssignableFrom(MainViewModel::class.java)) {
-            return MainViewModel(getGames, getSpeedRun, getUser) as T
+            return MainViewModel(getGames, getSpeedRun, getUser, getDeviceContacts) as T
         }
         throw IllegalArgumentException("Unknown ViewModel class")
     }

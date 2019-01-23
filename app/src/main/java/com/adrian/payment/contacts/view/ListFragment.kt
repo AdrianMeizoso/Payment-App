@@ -1,5 +1,6 @@
 package com.adrian.payment.contacts.view
 
+import android.net.Uri
 import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
@@ -10,6 +11,7 @@ import androidx.lifecycle.ViewModelProviders
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.adrian.payment.R
+import com.adrian.payment.common.setCircleImageUrl
 import com.adrian.payment.contacts.domain.GamesAdapter
 import com.adrian.payment.contacts.domain.viewmodel.MainViewModel
 import com.adrian.payment.contacts.domain.viewmodel.MainViewModelFactory
@@ -39,6 +41,13 @@ class ListFragment : Fragment(), KodeinAware {
     override fun onActivityCreated(savedInstanceState: Bundle?) {
         super.onActivityCreated(savedInstanceState)
         initGamesRecycler()
+        setContactObserver()
+    }
+
+    private fun setContactObserver() {
+        mainViewModel.contactsData.observe(this, Observer {
+            contact_image.setCircleImageUrl(it[0].avatarUrl)
+        })
     }
 
     //Private methods
