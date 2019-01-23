@@ -4,11 +4,13 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:background="@color/mainBack"
-    tools:context=".main.view.ListFragment">
+    tools:context=".contacts.view.ListFragment">
 
     <androidx.recyclerview.widget.RecyclerView
         android:id="@+id/games_recycler"
         android:layout_width="match_parent"
-        android:layout_height="match_parent" />
+        android:layout_height="match_parent"
+        android:visibility="invisible"
+        android:layoutAnimation="@anim/item_list_layout_anim"/>
 
 </FrameLayout>

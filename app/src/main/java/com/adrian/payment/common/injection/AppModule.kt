@@ -1,8 +1,8 @@
 package com.adrian.payment.common.injection
 
 import com.adrian.payment.common.injection.Url.BASE_URL
-import com.adrian.payment.main.datasource.RunsApiDataSource
-import com.adrian.payment.main.repository.RunsRepository
+import com.adrian.payment.contacts.datasource.RunsApiDataSource
+import com.adrian.payment.contacts.repository.RunsRepository
 import com.squareup.moshi.Moshi
 import okhttp3.OkHttpClient
 import org.kodein.di.Kodein

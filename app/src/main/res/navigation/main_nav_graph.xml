@@ -6,7 +6,7 @@
     app:startDestination="@id/listFragment">
     <fragment
         android:id="@+id/listFragment"
-        android:name="com.adrian.payment.main.view.ListFragment"
+        android:name="com.adrian.payment.contacts.view.ListFragment"
         android:label="fragment_list"
         tools:layout="@layout/fragment_list">
         <action
@@ -19,7 +19,7 @@
     </fragment>
     <fragment
         android:id="@+id/detailFragment"
-        android:name="com.adrian.payment.main.view.DetailFragment"
+        android:name="com.adrian.payment.contacts.view.DetailFragment"
         android:label="fragment_detail"
         tools:layout="@layout/fragment_detail" >
         <argument android:name="gameId"

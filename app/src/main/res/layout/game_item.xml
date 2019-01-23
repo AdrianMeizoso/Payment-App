@@ -2,9 +2,9 @@
 <layout xmlns:app="http://schemas.android.com/apk/res-auto">
     <data>
         <import type="android.view.View"/>
-        <import type="com.adrian.payment.main.domain.model.GameInfo" />
-        <import type="com.adrian.payment.main.domain.GamesViewHolder"/>
-        <variable name="game" type="com.adrian.payment.main.domain.model.GameInfo" />
+        <import type="com.adrian.payment.contacts.domain.model.GameInfo" />
+        <import type="com.adrian.payment.contacts.domain.GamesViewHolder"/>
+        <variable name="game" type="com.adrian.payment.contacts.domain.model.GameInfo" />
         <variable name="elemPos" type="Integer" />
         <variable name="viewHolder" type="GamesViewHolder" />
     </data>
@@ -26,7 +26,6 @@
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent" />
 
-
         <LinearLayout
             android:layout_width="0dp"
             android:layout_height="0dp"
@@ -44,7 +43,8 @@
                 android:layout_height="wrap_content"
                 android:text="@{game.names.international, default=Placeholder}"
                 android:textSize="@dimen/normal_text"
-                android:textColor="@android:color/white"
+                android:textColor="@color/colorText"
+                android:fontFamily="@font/sourcesanspro_bold"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toEndOf="@+id/game_image"
                 app:layout_constraintTop_toTopOf="parent" />
@@ -55,7 +55,8 @@
                 android:layout_height="wrap_content"
                 android:text="PRUEBA"
                 android:textSize="@dimen/normal_text"
-                android:textColor="@android:color/white"
+                android:fontFamily="@font/sourcesanspro_light"
+                android:textColor="@color/colorText"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toEndOf="@+id/game_image"
                 app:layout_constraintTop_toTopOf="parent" />

@@ -2,7 +2,7 @@ package com.adrian.payment
 
 import android.app.Application
 import com.adrian.payment.common.injection.appModule
-import com.adrian.payment.main.module.mainModule
+import com.adrian.payment.contacts.module.mainModule
 import org.kodein.di.Kodein
 import org.kodein.di.KodeinAware
 

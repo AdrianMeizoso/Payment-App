@@ -7,7 +7,7 @@
         android:layout_height="match_parent"
         android:background="@color/detailBack"
         android:orientation="vertical"
-        tools:context=".main.view.DetailFragment">
+        tools:context=".contacts.view.DetailFragment">
 
         <RelativeLayout
             android:layout_width="match_parent"
