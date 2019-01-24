@@ -6,7 +6,11 @@ import android.view.View
 import android.view.ViewGroup
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.ViewModelProviders
+import androidx.navigation.findNavController
+import androidx.recyclerview.widget.LinearLayoutManager
+import androidx.recyclerview.widget.RecyclerView
 import com.adrian.payment.R
+import com.adrian.payment.contacts.domain.SelectedContactsAdapter
 import com.adrian.payment.contacts.domain.viewmodel.MainViewModel
 import com.adrian.payment.contacts.domain.viewmodel.MainViewModelFactory
 import kotlinx.android.synthetic.main.fragment_result.*
@@ -35,8 +39,19 @@ class ResultFragment : Fragment(), KodeinAware {
     override fun onActivityCreated(savedInstanceState: Bundle?) {
         super.onActivityCreated(savedInstanceState)
 
-        //val amount = arguments?.getFloat("amount")
-        //amount?.let { amount_text.text = (it + 0.2F).toString()}
-        amount_text.text = mainViewModel.contactsSelected.toString()
+        val amount = arguments?.getFloat("amount")
+        amount?.let {
+            amount_text.text = String.format("%.2f€", it)
+
+            val linearLayoutManager = LinearLayoutManager(context, RecyclerView.VERTICAL, false)
+            val contactsAdapter = SelectedContactsAdapter(mainViewModel.contactsSelected,
+                    amount/mainViewModel.contactsSelected.size.toFloat())
+            contacts_selected_recycler.layoutManager = linearLayoutManager
+            contacts_selected_recycler.adapter = contactsAdapter
+
+            return_button.setOnClickListener {view ->
+                view.findNavController().navigate(R.id.action_resultFragment_to_listFragment)
+            }
+        }
     }
 }

@@ -25,36 +25,22 @@ class AmountViewModel : BaseViewModel() {
         showDecimals.value = false
     }
 
-    fun numberClicked(amount:Int, decimals:String, number:Int) {
+    fun numberClicked(amount: Int, decimals: String, number: Int) {
         showDecimals.value?.let { hasDecimals ->
-            if (hasDecimals) {
-                when {
-                    decimals.isBlank() -> currentDecimals.value = number.toString()
-                    else -> {
-                        if ((decimals + number.toString()).count() <= MAX_DECIMALS)
-                            currentDecimals.value = decimals + number.toString()
-                    }
-                }
-
-            } else {
-                when {
-                    amount <= 0 -> currentAmount.value = number
-                    else -> currentAmount.value = amount*MULTIPLIER + number
-                }
-                if (amount*MULTIPLIER + number >= MAX_AMOUNT) currentAmount.value = MAX_AMOUNT
-            }
+            if (hasDecimals) setDecimals(decimals, number)
+            else setAmount(amount, number)
         }
     }
 
     fun deleteElemClicked(amount: Int, decimalsParam: String) {
-        showDecimals.value?.let {hasDecimals ->
+        showDecimals.value?.let { hasDecimals ->
             if (hasDecimals) {
                 currentDecimals.value?.let { decimals ->
                     currentDecimals.value = decimalsParam.dropLast(1)
                     if (decimals.isBlank()) showDecimals.value = false
                 }
             } else {
-                currentAmount.value = amount/MULTIPLIER
+                currentAmount.value = amount / MULTIPLIER
             }
         }
     }
@@ -67,5 +53,24 @@ class AmountViewModel : BaseViewModel() {
         val bundleAmount = bundleOf("amount" to
                 (currentAmount.value.toString() + "." + currentDecimals.value).toFloat())
         view.findNavController().navigate(R.id.action_amountFragment_to_resultFragment, bundleAmount)
+    }
+
+    // Private methods
+    private fun setDecimals(decimals: String, number: Int) {
+        when {
+            decimals.isBlank() -> currentDecimals.value = number.toString()
+            else -> {
+                if ((decimals + number.toString()).count() <= MAX_DECIMALS)
+                    currentDecimals.value = decimals + number.toString()
+            }
+        }
+    }
+
+    private fun setAmount(amount: Int, number: Int) {
+        when {
+            amount <= 0 -> currentAmount.value = number
+            else -> currentAmount.value = amount * MULTIPLIER + number
+        }
+        if (amount * MULTIPLIER + number >= MAX_AMOUNT) currentAmount.value = MAX_AMOUNT
     }
 }

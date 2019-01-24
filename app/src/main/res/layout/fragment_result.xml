@@ -1,15 +1,67 @@
 <?xml version="1.0" encoding="utf-8"?>
-<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:background="@color/mainBack"
     tools:context=".contacts.view.ResultFragment">
 
-    <!-- TODO: Update blank fragment layout -->
-    <TextView
-        android:id="@+id/amount_text"
+    <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:text="@string/hello_blank_fragment" />
+        android:orientation="vertical">
 
-</FrameLayout>
+        <TextView
+            android:id="@+id/amount_title"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_margin="16dp"
+            android:fontFamily="@font/sourcesanspro_regular"
+            android:gravity="center"
+            android:text="@string/amount_title"
+            android:textColor="@android:color/white"
+            android:textSize="@dimen/normal_text" />
+
+        <TextView
+            android:id="@+id/amount_text"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_margin="16dp"
+            android:fontFamily="@font/sourcesanspro_bold"
+            android:gravity="center"
+            android:text="@string/hello_blank_fragment"
+            android:textColor="@color/colorPrimary"
+            android:textSize="@dimen/big_text" />
+
+        <TextView
+            android:id="@+id/contacts_title"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_margin="16dp"
+            android:fontFamily="@font/sourcesanspro_regular"
+            android:gravity="center"
+            android:text="@string/contacts_title"
+            android:textColor="@android:color/white"
+            android:textSize="@dimen/normal_text" />
+
+        <androidx.recyclerview.widget.RecyclerView
+            android:id="@+id/contacts_selected_recycler"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content" />
+
+    </LinearLayout>
+
+    <Button
+        android:id="@+id/return_button"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:textColor="@android:color/white"
+        android:backgroundTint="@color/colorAccent"
+        android:fontFamily="@font/sourcesanspro_bold"
+        android:layout_alignParentBottom="true"
+        android:layout_centerHorizontal="true"
+        android:layout_marginBottom="16dp"
+        android:text="@string/home_button"
+        android:textSize="@dimen/normal_text"/>
+
+</RelativeLayout>

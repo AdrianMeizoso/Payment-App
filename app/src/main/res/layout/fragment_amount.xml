@@ -3,7 +3,9 @@
     xmlns:app="http://schemas.android.com/apk/res-auto">
 
     <data>
-        <import type="android.view.View"/>
+
+        <import type="android.view.View" />
+
         <variable
             name="viewModel"
             type="com.adrian.payment.contacts.domain.viewmodel.AmountViewModel" />
@@ -276,7 +278,7 @@
             android:fontFamily="@font/sourcesanspro_bold"
             android:gravity="center"
             android:onClick="@{(view) -> viewModel.pay(view)}"
-            android:text="@string/pay"
+            android:text="@string/continue_text"
             android:textColor="@color/colorText"
             android:textSize="@dimen/big_text"
             app:layout_constraintBottom_toBottomOf="parent"

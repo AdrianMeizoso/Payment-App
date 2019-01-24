@@ -5,5 +5,9 @@
     <string name="loading">Loading…</string>
     <string name="video_text">See video</string>
     <string name="pay">Pay</string>
+    <string name="continue_text">Continue</string>
+    <string name="amount_title">Amount</string>
+    <string name="contacts_title">Contacts</string>
+    <string name="home_button">Return to home</string>
 
 </resources>

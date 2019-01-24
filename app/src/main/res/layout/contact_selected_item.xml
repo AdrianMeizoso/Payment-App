@@ -1,11 +1,16 @@
 <?xml version="1.0" encoding="utf-8"?>
-<layout xmlns:app="http://schemas.android.com/apk/res-auto">
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto">
 
     <data>
 
         <import type="android.view.View" />
 
         <import type="com.adrian.payment.contacts.domain.model.Contact" />
+
+        <variable
+            name="amount"
+            type="Float" />
 
         <variable
             name="contact"
@@ -16,7 +21,7 @@
             type="Integer" />
     </data>
 
-    <androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    <androidx.constraintlayout.widget.ConstraintLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:background="@{contact.selected ? @color/mainBackRipple : @android:color/transparent}"
@@ -36,13 +41,15 @@
             app:layout_constraintTop_toTopOf="parent" />
 
         <LinearLayout
+            android:id="@+id/linearLayout"
             android:layout_width="0dp"
             android:layout_height="0dp"
             android:layout_marginStart="16dp"
+            android:layout_marginEnd="8dp"
             android:gravity="center_vertical"
             android:orientation="vertical"
             app:layout_constraintBottom_toBottomOf="@+id/game_image"
-            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintEnd_toStartOf="@+id/amount_text"
             app:layout_constraintStart_toEndOf="@+id/game_image"
             app:layout_constraintTop_toTopOf="parent">
 
@@ -71,6 +78,19 @@
                 app:layout_constraintTop_toTopOf="parent" />
 
         </LinearLayout>
+
+        <TextView
+            android:id="@+id/amount_text"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginBottom="8dp"
+            android:text="@{amount.toString() + `€`}"
+            android:fontFamily="@font/sourcesanspro_regular"
+            android:textColor="@color/colorPrimary"
+            android:textSize="@dimen/normal_text"
+            app:layout_constraintBottom_toBottomOf="@+id/linearLayout"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintTop_toTopOf="parent" />
 
     </androidx.constraintlayout.widget.ConstraintLayout>
 </layout>
