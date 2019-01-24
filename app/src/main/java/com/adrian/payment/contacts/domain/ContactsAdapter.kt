@@ -7,13 +7,13 @@ import androidx.recyclerview.widget.DiffUtil
 import com.adrian.payment.R
 import com.adrian.payment.contacts.domain.model.Contact
 
-class GamesAdapter : PagedListAdapter<Contact, GamesViewHolder>(contactDiffCallback) {
+class ContactsAdapter : PagedListAdapter<Contact, ContactsViewHolder>(contactDiffCallback) {
 
-    override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): GamesViewHolder {
-        return GamesViewHolder.create(parent)
+    override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ContactsViewHolder {
+        return ContactsViewHolder.create(parent)
     }
 
-    override fun onBindViewHolder(holder: GamesViewHolder, position: Int) {
+    override fun onBindViewHolder(holder: ContactsViewHolder, position: Int) {
         val game = getItem(position)
         holder.itemView.setOnLongClickListener {
             currentList?.get(position)?.selected = currentList?.get(position)?.selected?.not()!!

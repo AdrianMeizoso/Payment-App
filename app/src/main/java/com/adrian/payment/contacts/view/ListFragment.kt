@@ -11,7 +11,7 @@ import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.adrian.payment.R
 import com.adrian.payment.common.setCircleImageUrl
-import com.adrian.payment.contacts.domain.GamesAdapter
+import com.adrian.payment.contacts.domain.ContactsAdapter
 import com.adrian.payment.contacts.domain.viewmodel.MainViewModel
 import com.adrian.payment.contacts.domain.viewmodel.MainViewModelFactory
 import kotlinx.android.synthetic.main.fragment_list.*
@@ -52,7 +52,7 @@ class ListFragment : Fragment(), KodeinAware {
 
     private fun initGamesRecycler() {
         val linearLayoutManager = LinearLayoutManager(context, RecyclerView.VERTICAL, false)
-        val gamesAdapter = GamesAdapter()
+        val gamesAdapter = ContactsAdapter()
         games_recycler.layoutManager = linearLayoutManager
         games_recycler.adapter = gamesAdapter
         mainViewModel.gamesList.observe(this, Observer {

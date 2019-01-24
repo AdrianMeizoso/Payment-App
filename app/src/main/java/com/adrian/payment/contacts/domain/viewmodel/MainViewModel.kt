@@ -5,23 +5,15 @@ import androidx.lifecycle.MutableLiveData
 import androidx.paging.LivePagedListBuilder
 import androidx.paging.PagedList
 import com.adrian.payment.common.BaseViewModel
-import com.adrian.payment.contacts.domain.GamesPagingDataSourceFactory
+import com.adrian.payment.contacts.domain.ContactsPagingDataSourceFactory
 import com.adrian.payment.contacts.domain.model.Contact
-import com.adrian.payment.contacts.domain.model.RunData
-import com.adrian.payment.contacts.domain.model.UserData
-import com.adrian.payment.contacts.usecase.*
-import io.reactivex.android.schedulers.AndroidSchedulers
-import io.reactivex.schedulers.Schedulers
+import com.adrian.payment.contacts.usecase.GetDeviceContacts
+import com.adrian.payment.contacts.usecase.GetMarvelContacts
 
-class MainViewModel(getGames: GetGames,
-                    private val getSpeedRun: GetSpeedRun,
-                    private val getUser: GetUser,
-                    getDeviceContacts: GetDeviceContacts,
+class MainViewModel(getDeviceContacts: GetDeviceContacts,
                     getMarvelContacts: GetMarvelContacts) : BaseViewModel() {
 
     val gamesList: LiveData<PagedList<Contact>>
-    var runData: MutableLiveData<RunData>? = null
-    var userData: MutableLiveData<UserData>? = null
 
     val contactsData: MutableLiveData<List<Contact>> = MutableLiveData()
 
@@ -37,7 +29,7 @@ class MainViewModel(getGames: GetGames,
     }
 
     init {
-        val sourceFactory = GamesPagingDataSourceFactory(disposables, getMarvelContacts)
+        val sourceFactory = ContactsPagingDataSourceFactory(disposables, getMarvelContacts)
         gamesList = LivePagedListBuilder(sourceFactory, pagedListConfig).build()
 
         /*disposables.add(getDeviceContacts.execute()
@@ -55,34 +47,5 @@ class MainViewModel(getGames: GetGames,
                     Log.v("CERDO", "Pintamos contactos: $contacts")
                     contactsData.value = contacts
                 })*/
-    }
-/*
-    fun getGameByPos(gameId: Int): GameInfo? {
-        position = gameId
-        return gamesList.value?.get(gameId)
-    }
-*/
-
-    fun getSpeedRunByGameId(gameId: String) {
-        disposables.add(getSpeedRun.execute(gameId)
-            .subscribeOn(Schedulers.io())
-            .observeOn(AndroidSchedulers.mainThread())
-            .subscribe { runDataInfo, _: Throwable? ->
-                runData?.value = runDataInfo ?: return@subscribe
-        })
-    }
-
-    fun getUserById(userId: String) {
-        disposables.add(getUser.execute(userId)
-            .subscribeOn(Schedulers.io())
-            .observeOn(AndroidSchedulers.mainThread())
-            .subscribe { userDataInfo, _: Throwable? ->
-                userData?.value = userDataInfo ?: return@subscribe
-            })
-    }
-
-    fun reset() {
-        runData = null
-        userData = null
     }
 }

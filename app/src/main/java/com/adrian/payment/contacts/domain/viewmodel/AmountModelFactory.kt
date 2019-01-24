@@ -2,7 +2,6 @@ package com.adrian.payment.contacts.domain.viewmodel
 
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.ViewModelProvider
-import com.adrian.payment.contacts.usecase.*
 
 class AmountModelFactory : ViewModelProvider.Factory {
 

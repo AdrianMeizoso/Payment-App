@@ -2,14 +2,12 @@ package com.adrian.payment.contacts.domain
 
 import androidx.paging.PageKeyedDataSource
 import com.adrian.payment.contacts.domain.model.Contact
-import com.adrian.payment.contacts.domain.model.GameInfo
-import com.adrian.payment.contacts.usecase.GetGames
 import com.adrian.payment.contacts.usecase.GetMarvelContacts
 import io.reactivex.android.schedulers.AndroidSchedulers
 import io.reactivex.disposables.CompositeDisposable
 import io.reactivex.schedulers.Schedulers
 
-class GamesPagingDataSource(
+class ContactsPagingDataSource(
         private val getMarvelContacts: GetMarvelContacts,
         private val compositeDisposable: CompositeDisposable) : PageKeyedDataSource<Int, Contact>() {
 

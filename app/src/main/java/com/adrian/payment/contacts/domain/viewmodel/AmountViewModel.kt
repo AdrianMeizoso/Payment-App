@@ -1,7 +1,6 @@
 package com.adrian.payment.contacts.domain.viewmodel
 
 import android.view.View
-import android.widget.Button
 import androidx.core.os.bundleOf
 import androidx.lifecycle.MutableLiveData
 import androidx.navigation.findNavController

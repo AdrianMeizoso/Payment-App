@@ -2,7 +2,6 @@ package com.adrian.payment.contacts.usecase
 
 import com.adrian.payment.contacts.domain.model.Contact
 import com.adrian.payment.contacts.repository.ContactsRepository
-import io.reactivex.Observable
 import io.reactivex.Single
 
 class GetMarvelContacts(private val contactsRepository: ContactsRepository) {
