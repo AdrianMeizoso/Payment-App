@@ -2,8 +2,8 @@ package com.adrian.payment.common.injection
 
 import com.adrian.payment.common.injection.Url.BASE_URL
 import com.adrian.payment.contacts.datasource.ContactsDeviceDataSource
+import com.adrian.payment.contacts.datasource.ContactsFakeDataSource
 import com.adrian.payment.contacts.datasource.HeroesApiDataSource
-import com.adrian.payment.contacts.datasource.RunsApiDataSource
 import com.adrian.payment.contacts.repository.ContactsRepository
 import com.squareup.moshi.Moshi
 import okhttp3.OkHttpClient
@@ -32,9 +32,9 @@ val appModule = Kodein.Module("App") {
                 .build()
     }
     bind() from singleton { Moshi.Builder().build()}
-    bind() from singleton { instance<Retrofit>().create(RunsApiDataSource::class.java)}
 
     bind() from singleton { ContactsDeviceDataSource(instance()) }
+    bind() from singleton { ContactsFakeDataSource() }
     bind() from singleton { instance<Retrofit>().create(HeroesApiDataSource::class.java) }
-    bind() from singleton { ContactsRepository(instance(), instance()) }
+    bind() from singleton { ContactsRepository(instance<ContactsDeviceDataSource>(), instance()) }
 }

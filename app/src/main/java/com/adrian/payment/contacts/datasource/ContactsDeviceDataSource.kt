@@ -7,9 +7,9 @@ import com.adrian.payment.contacts.domain.model.Contact
 import io.reactivex.Single
 
 
-class ContactsDeviceDataSource(val context: Context) {
+class ContactsDeviceDataSource(private val context: Context) : ContactsDataSource {
 
-    fun getDeviceContacts(): Single<List<Contact>> {
+   override fun getDeviceContacts(): Single<List<Contact>> {
         val contactsList: ArrayList<Contact> = ArrayList()
         val resolver: ContentResolver = context.contentResolver
         val cursorQuery = resolver.query(ContactsContract.Contacts.CONTENT_URI, null, null, null,
@@ -52,6 +52,6 @@ class ContactsDeviceDataSource(val context: Context) {
             }
             cursorQuery.close()
         }
-        return Single.just(contactsList)
+        return Single.just(contactsList.sortedBy { contact -> contact.name })
     }
 }

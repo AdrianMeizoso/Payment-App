@@ -6,11 +6,9 @@ import io.reactivex.Single
 
 class GetMarvelContacts(private val contactsRepository: ContactsRepository) {
 
-    var offset: Int = 0
-
-    fun execute(): Single<List<Contact>> {
+    fun execute(offset: Int, sizeList: Int): Single<List<Contact>> {
         return contactsRepository
-                .getMarvelContacts(offset)
+                .getMarvelContacts(offset, sizeList)
                 .toObservable()
                 .flatMapIterable { it.marvelData.marvelHeroes }
                 .map { hero -> Contact(hero.name,
@@ -21,6 +19,5 @@ class GetMarvelContacts(private val contactsRepository: ContactsRepository) {
                 .doOnError {
                     it.printStackTrace()
                 }
-                .doFinally { offset = 0 }
     }
 }

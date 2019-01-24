@@ -7,11 +7,11 @@ import androidx.paging.PagedList
 import com.adrian.payment.common.BaseViewModel
 import com.adrian.payment.contacts.domain.ContactsPagingDataSourceFactory
 import com.adrian.payment.contacts.domain.model.Contact
+import com.adrian.payment.contacts.usecase.GetContacts
 import com.adrian.payment.contacts.usecase.GetDeviceContacts
 import com.adrian.payment.contacts.usecase.GetMarvelContacts
 
-class MainViewModel(getDeviceContacts: GetDeviceContacts,
-                    getMarvelContacts: GetMarvelContacts) : BaseViewModel() {
+class MainViewModel(getContacts: GetContacts) : BaseViewModel() {
 
     val gamesList: LiveData<PagedList<Contact>>
 
@@ -23,13 +23,13 @@ class MainViewModel(getDeviceContacts: GetDeviceContacts,
         PagedList.Config.Builder()
                 .setEnablePlaceholders(false)
                 .setInitialLoadSizeHint(40)
-                .setPageSize(20)
+                .setPageSize(40)
                 .setPrefetchDistance(40)
                 .build()
     }
 
     init {
-        val sourceFactory = ContactsPagingDataSourceFactory(disposables, getMarvelContacts)
+        val sourceFactory = ContactsPagingDataSourceFactory(disposables, getContacts)
         gamesList = LivePagedListBuilder(sourceFactory, pagedListConfig).build()
 
         /*disposables.add(getDeviceContacts.execute()
