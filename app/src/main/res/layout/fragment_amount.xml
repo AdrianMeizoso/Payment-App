@@ -18,7 +18,7 @@
 
         <variable
             name="decimals"
-            type="Integer" />
+            type="String" />
     </data>
 
     <androidx.constraintlayout.widget.ConstraintLayout
@@ -67,7 +67,7 @@
                     android:layout_marginBottom="8dp"
                     android:hint="00"
                     android:lines="1"
-                    android:text="@{decimals.toString()}"
+                    android:text="@{decimals}"
                     android:textColor="@android:color/white"
                     android:textSize="50sp"
                     android:textStyle="bold"

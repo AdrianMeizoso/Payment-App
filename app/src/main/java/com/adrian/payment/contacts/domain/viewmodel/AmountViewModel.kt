@@ -2,6 +2,7 @@ package com.adrian.payment.contacts.domain.viewmodel
 
 import android.view.View
 import android.widget.Button
+import androidx.core.os.bundleOf
 import androidx.lifecycle.MutableLiveData
 import androidx.navigation.findNavController
 import com.adrian.payment.R
@@ -10,29 +11,32 @@ import com.adrian.payment.common.BaseViewModel
 class AmountViewModel : BaseViewModel() {
 
     val currentAmount: MutableLiveData<Int> = MutableLiveData()
-    val currentDecimals: MutableLiveData<Int> = MutableLiveData()
+    val currentDecimals: MutableLiveData<String> = MutableLiveData()
     val showDecimals: MutableLiveData<Boolean> = MutableLiveData()
 
     companion object {
         const val MAX_AMOUNT: Int = 1000
-        const val MAX_DECIMALS: Int = 99
+        const val MAX_DECIMALS: Int = 2
         const val MULTIPLIER: Int = 10
     }
 
     init {
         currentAmount.value = 0
-        currentDecimals.value = 0
+        currentDecimals.value = ""
         showDecimals.value = false
     }
 
-    fun numberClicked(amount:Int, decimals:Int, number:Int) {
+    fun numberClicked(amount:Int, decimals:String, number:Int) {
         showDecimals.value?.let { hasDecimals ->
             if (hasDecimals) {
                 when {
-                    decimals <= 0 -> currentDecimals.value = number
-                    else -> currentDecimals.value = decimals*MULTIPLIER + number
+                    decimals.isBlank() -> currentDecimals.value = number.toString()
+                    else -> {
+                        if ((decimals + number.toString()).count() <= MAX_DECIMALS)
+                            currentDecimals.value = decimals + number.toString()
+                    }
                 }
-                if (decimals*MULTIPLIER + number >= MAX_DECIMALS) currentDecimals.value = MAX_DECIMALS
+
             } else {
                 when {
                     amount <= 0 -> currentAmount.value = number
@@ -43,14 +47,12 @@ class AmountViewModel : BaseViewModel() {
         }
     }
 
-    fun deleteElemClicked(amount: Int, decimalsParam: Int) {
+    fun deleteElemClicked(amount: Int, decimalsParam: String) {
         showDecimals.value?.let {hasDecimals ->
             if (hasDecimals) {
                 currentDecimals.value?.let { decimals ->
-                    when {
-                        decimals <= 0 -> showDecimals.value = false
-                        else -> currentDecimals.value = decimalsParam/MULTIPLIER
-                    }
+                    currentDecimals.value = decimalsParam.dropLast(1)
+                    if (decimals.isBlank()) showDecimals.value = false
                 }
             } else {
                 currentAmount.value = amount/MULTIPLIER
@@ -63,6 +65,8 @@ class AmountViewModel : BaseViewModel() {
     }
 
     fun pay(view: View) {
-        view.findNavController().navigate(R.id.action_amountFragment_to_resultFragment)
+        val bundleAmount = bundleOf("amount" to
+                (currentAmount.value.toString() + "." + currentDecimals.value).toFloat())
+        view.findNavController().navigate(R.id.action_amountFragment_to_resultFragment, bundleAmount)
     }
 }
