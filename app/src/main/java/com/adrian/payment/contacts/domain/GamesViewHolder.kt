@@ -7,6 +7,7 @@ import androidx.core.os.bundleOf
 import androidx.navigation.findNavController
 import androidx.recyclerview.widget.RecyclerView
 import com.adrian.payment.R
+import com.adrian.payment.contacts.domain.model.Contact
 import com.adrian.payment.databinding.GameItemBinding
 import com.adrian.payment.contacts.domain.model.GameInfo
 
@@ -20,15 +21,14 @@ class GamesViewHolder(private val binding: GameItemBinding) : RecyclerView.ViewH
         }
     }
 
-    fun bind(game: GameInfo, position: Int) {
-        binding.game = game
-        binding.elemPos = position
-        binding.viewHolder = this
-        binding.executePendingBindings()
+    fun onClickGame(view: View, position: Int, contact: Contact) {
+        //val bundleGame = bundleOf("gameId" to game.id, "position" to position)
+        //view.findNavController().navigate(R.id.action_listFragment_to_detailFragment, bundleGame)
     }
 
-    fun onClickGame(view:View, position: Int, game: GameInfo) {
-        val bundleGame = bundleOf("gameId" to game.id, "position" to position)
-        view.findNavController().navigate(R.id.action_listFragment_to_detailFragment, bundleGame)
+    fun bind(contact: Contact, position: Int) {
+        binding.contact = contact
+        binding.elemPos = position
+        binding.executePendingBindings()
     }
 }

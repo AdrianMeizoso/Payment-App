@@ -1,5 +1,6 @@
 package com.adrian.payment.contacts.module
 
+import com.adrian.payment.contacts.domain.viewmodel.AmountModelFactory
 import com.adrian.payment.contacts.domain.viewmodel.MainViewModelFactory
 import com.adrian.payment.contacts.usecase.*
 import org.kodein.di.Kodein
@@ -16,4 +17,5 @@ val mainModule = Kodein.Module("Main") {
     bind() from singleton { GetMarvelContacts(instance())}
 
     bind() from provider { MainViewModelFactory(instance(), instance(), instance(), instance(), instance()) }
+    bind() from provider { AmountModelFactory() }
 }

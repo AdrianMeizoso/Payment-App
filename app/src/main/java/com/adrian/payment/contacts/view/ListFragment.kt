@@ -1,6 +1,5 @@
 package com.adrian.payment.contacts.view
 
-import android.net.Uri
 import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
@@ -19,7 +18,6 @@ import kotlinx.android.synthetic.main.fragment_list.*
 import org.kodein.di.KodeinAware
 import org.kodein.di.android.x.closestKodein
 import org.kodein.di.generic.instance
-
 
 class ListFragment : Fragment(), KodeinAware {
 

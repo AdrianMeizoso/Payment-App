@@ -1,0 +1,287 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto">
+
+    <data>
+        <import type="android.view.View"/>
+        <variable
+            name="viewModel"
+            type="com.adrian.payment.contacts.domain.viewmodel.AmountViewModel" />
+
+        <variable
+            name="hasDecimals"
+            type="Boolean" />
+
+        <variable
+            name="amount"
+            type="Integer" />
+
+        <variable
+            name="decimals"
+            type="Integer" />
+    </data>
+
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:background="@drawable/back_result"
+        android:fitsSystemWindows="true"
+        android:orientation="vertical"
+        android:weightSum="10">
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="0dp"
+            android:gravity="center"
+            android:orientation="horizontal"
+            app:layout_constraintBottom_toTopOf="@+id/tableLayout"
+            app:layout_constraintTop_toTopOf="parent">
+
+            <androidx.constraintlayout.widget.ConstraintLayout
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content">
+
+                <TextView
+                    android:id="@+id/currentAmount"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="center"
+                    android:autoSizeMaxTextSize="100sp"
+                    android:autoSizeTextType="uniform"
+                    android:hint="0"
+                    android:lines="1"
+                    android:text="@{amount.toString()}"
+                    android:textColor="@android:color/white"
+                    android:textSize="100sp"
+                    android:textStyle="bold"
+                    app:layout_constraintBottom_toBottomOf="parent"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toTopOf="parent" />
+
+                <TextView
+                    android:id="@+id/currentDecimals"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="center"
+                    android:layout_marginStart="8dp"
+                    android:layout_marginBottom="8dp"
+                    android:hint="00"
+                    android:lines="1"
+                    android:text="@{decimals.toString()}"
+                    android:textColor="@android:color/white"
+                    android:textSize="50sp"
+                    android:textStyle="bold"
+                    android:visibility="@{hasDecimals ? View.VISIBLE : View.GONE}"
+                    app:layout_constraintBottom_toBottomOf="@+id/currentAmount"
+                    app:layout_constraintStart_toEndOf="@+id/currentAmount" />
+
+            </androidx.constraintlayout.widget.ConstraintLayout>
+
+        </LinearLayout>
+
+        <TableLayout
+            android:id="@+id/tableLayout"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:background="@color/mainBack"
+            app:layout_constraintBottom_toTopOf="@+id/button">
+
+            <TableRow
+                android:layout_width="match_parent"
+                android:layout_height="match_parent">
+
+                <Button
+                    android:id="@+id/button7"
+                    android:layout_width="0dp"
+                    android:layout_height="90dp"
+                    android:layout_weight="1"
+                    android:autoSizeMaxTextSize="30sp"
+                    android:autoSizeTextType="uniform"
+                    android:background="?android:attr/selectableItemBackground"
+                    android:maxHeight="90dp"
+                    android:onClick="@{() -> viewModel.numberClicked(amount, decimals, 7)}"
+                    android:text="7"
+                    android:textColor="@color/colorText" />
+
+                <Button
+                    android:id="@+id/button8"
+                    android:layout_width="0dp"
+                    android:layout_height="90dp"
+                    android:layout_weight="1"
+                    android:autoSizeMaxTextSize="30sp"
+                    android:autoSizeTextType="uniform"
+                    android:background="?android:attr/selectableItemBackground"
+                    android:maxHeight="90dp"
+                    android:onClick="@{() -> viewModel.numberClicked(amount, decimals, 8)}"
+                    android:text="8"
+                    android:textColor="@color/colorText" />
+
+                <Button
+                    android:id="@+id/button9"
+                    android:layout_width="0dp"
+                    android:layout_height="90dp"
+                    android:layout_weight="1"
+                    android:autoSizeMaxTextSize="30sp"
+                    android:autoSizeTextType="uniform"
+                    android:background="?android:attr/selectableItemBackground"
+                    android:maxHeight="90dp"
+                    android:onClick="@{() -> viewModel.numberClicked(amount, decimals, 9)}"
+                    android:text="9"
+                    android:textColor="@color/colorText" />
+
+
+            </TableRow>
+
+            <TableRow
+                android:layout_width="match_parent"
+                android:layout_height="match_parent">
+
+                <Button
+                    android:id="@+id/button4"
+                    android:layout_width="0dp"
+                    android:layout_height="90dp"
+                    android:layout_weight="1"
+                    android:autoSizeMaxTextSize="30sp"
+                    android:autoSizeTextType="uniform"
+                    android:background="?android:attr/selectableItemBackground"
+                    android:maxHeight="90dp"
+                    android:onClick="@{() -> viewModel.numberClicked(amount, decimals, 4)}"
+                    android:text="4"
+                    android:textColor="@color/colorText" />
+
+                <Button
+                    android:id="@+id/button5"
+                    android:layout_width="0dp"
+                    android:layout_height="90dp"
+                    android:layout_weight="1"
+                    android:autoSizeMaxTextSize="30sp"
+                    android:autoSizeTextType="uniform"
+                    android:background="?android:attr/selectableItemBackground"
+                    android:maxHeight="90dp"
+                    android:onClick="@{() -> viewModel.numberClicked(amount, decimals, 5)}"
+                    android:text="5"
+                    android:textColor="@color/colorText" />
+
+                <Button
+                    android:id="@+id/button6"
+                    android:layout_width="0dp"
+                    android:layout_height="90dp"
+                    android:layout_weight="1"
+                    android:autoSizeMaxTextSize="30sp"
+                    android:autoSizeTextType="uniform"
+                    android:background="?android:attr/selectableItemBackground"
+                    android:maxHeight="90dp"
+                    android:onClick="@{() -> viewModel.numberClicked(amount, decimals, 6)}"
+                    android:text="6"
+                    android:textColor="@color/colorText" />
+
+
+            </TableRow>
+
+            <TableRow
+                android:layout_width="match_parent"
+                android:layout_height="match_parent">
+
+                <Button
+                    android:id="@+id/button1"
+                    android:layout_width="0dp"
+                    android:layout_height="90dp"
+                    android:layout_weight="1"
+                    android:autoSizeMaxTextSize="30sp"
+                    android:autoSizeTextType="uniform"
+                    android:background="?android:attr/selectableItemBackground"
+                    android:maxHeight="90dp"
+                    android:onClick="@{() -> viewModel.numberClicked(amount, decimals, 1)}"
+                    android:text="1"
+                    android:textColor="@color/colorText" />
+
+                <Button
+                    android:id="@+id/button2"
+                    android:layout_width="0dp"
+                    android:layout_height="90dp"
+                    android:layout_weight="1"
+                    android:autoSizeMaxTextSize="30sp"
+                    android:autoSizeTextType="uniform"
+                    android:background="?android:attr/selectableItemBackground"
+                    android:maxHeight="90dp"
+                    android:onClick="@{() -> viewModel.numberClicked(amount, decimals, 2)}"
+                    android:text="2"
+                    android:textColor="@color/colorText" />
+
+                <Button
+                    android:id="@+id/buttton3"
+                    android:layout_width="0dp"
+                    android:layout_height="90dp"
+                    android:layout_weight="1"
+                    android:autoSizeMaxTextSize="30sp"
+                    android:autoSizeTextType="uniform"
+                    android:background="?android:attr/selectableItemBackground"
+                    android:maxHeight="90dp"
+                    android:onClick="@{() -> viewModel.numberClicked(amount, decimals, 3)}"
+                    android:text="3"
+                    android:textColor="@color/colorText" />
+
+            </TableRow>
+
+            <TableRow
+                android:layout_width="match_parent"
+                android:layout_height="match_parent">
+
+                <Button
+                    android:id="@+id/button0"
+                    android:layout_width="0dp"
+                    android:layout_height="90dp"
+                    android:layout_weight="1"
+                    android:autoSizeMaxTextSize="30sp"
+                    android:autoSizeTextType="uniform"
+                    android:background="?android:attr/selectableItemBackground"
+                    android:maxHeight="90dp"
+                    android:onClick="@{() -> viewModel.numberClicked(amount, decimals, 0)}"
+                    android:text="0"
+                    android:textColor="@color/colorText" />
+
+                <Button
+                    android:id="@+id/dotButton"
+                    android:layout_width="0dp"
+                    android:layout_height="90dp"
+                    android:layout_weight="1"
+                    android:autoSizeMaxTextSize="30sp"
+                    android:autoSizeTextType="uniform"
+                    android:background="?android:attr/selectableItemBackground"
+                    android:maxHeight="90dp"
+                    android:onClick="@{() -> viewModel.dotClicked(amount)}"
+                    android:text="."
+                    android:textColor="@color/colorText" />
+
+                <ImageButton
+                    android:id="@+id/backButton"
+                    android:layout_width="0dp"
+                    android:layout_height="90dp"
+                    android:layout_weight="1"
+                    android:autoSizeMaxTextSize="25sp"
+                    android:autoSizeTextType="uniform"
+                    android:background="?android:attr/selectableItemBackground"
+                    android:onClick="@{() -> viewModel.deleteElemClicked(amount, decimals)}"
+                    android:src="@drawable/ic_backspace_black_24dp" />
+
+            </TableRow>
+
+        </TableLayout>
+
+        <Button
+            android:id="@+id/button"
+            android:layout_width="0dp"
+            android:layout_height="60dp"
+            android:background="@color/payColorBack"
+            android:fontFamily="@font/sourcesanspro_bold"
+            android:gravity="center"
+            android:onClick="@{(view) -> viewModel.pay(view)}"
+            android:text="@string/pay"
+            android:textColor="@color/colorText"
+            android:textSize="@dimen/big_text"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent" />
+
+    </androidx.constraintlayout.widget.ConstraintLayout>
+</layout>

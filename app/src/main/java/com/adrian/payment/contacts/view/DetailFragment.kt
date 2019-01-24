@@ -47,9 +47,10 @@ class DetailFragment : Fragment(), KodeinAware {
             mainViewModel.userData = MutableLiveData()
             gameId?.let { mainViewModel.getSpeedRunByGameId(it) }
 
+            /*
             val game = gamePos?.let { mainViewModel.getGameByPos(it) }
             game_name.text = game?.names?.international ?: getString(R.string.no_text)
-            game_cover.setImageUrl(game?.assets?.coverLarge?.uri)
+            game_cover.setImageUrl(game?.assets?.coverLarge?.uri)*/
         }
 
         setObservers()

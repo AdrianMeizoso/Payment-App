@@ -2,11 +2,9 @@
 <layout xmlns:app="http://schemas.android.com/apk/res-auto">
     <data>
         <import type="android.view.View"/>
-        <import type="com.adrian.payment.contacts.domain.model.GameInfo" />
-        <import type="com.adrian.payment.contacts.domain.GamesViewHolder"/>
-        <variable name="game" type="com.adrian.payment.contacts.domain.model.GameInfo" />
+        <import type="com.adrian.payment.contacts.domain.model.Contact" />
+        <variable name="contact" type="com.adrian.payment.contacts.domain.model.Contact" />
         <variable name="elemPos" type="Integer" />
-        <variable name="viewHolder" type="GamesViewHolder" />
     </data>
 
     <androidx.constraintlayout.widget.ConstraintLayout
@@ -15,14 +13,17 @@
         android:layout_height="wrap_content"
         android:orientation="vertical"
         android:padding="16dp"
-        android:onClick="@{(view) -> viewHolder.onClickGame(view, elemPos, game)}">
+        android:clickable="true"
+        android:focusable="true"
+        android:background="@{contact.selected ? @color/mainBackRipple : @android:color/transparent}"
+        android:foreground="?android:attr/selectableItemBackground">
 
         <ImageView
             android:id="@+id/game_image"
             android:layout_width="60dp"
             android:layout_height="60dp"
             android:scaleType="centerInside"
-            app:circleImageUrl="@{game.assets.coverLarge.uri}"
+            app:circleImageUrl="@{contact.avatarUrl}"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent" />
 
@@ -41,7 +42,7 @@
                 android:id="@+id/game_name"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="@{game.names.international, default=Placeholder}"
+                android:text="@{contact.name, default=Placeholder}"
                 android:textSize="@dimen/normal_text"
                 android:textColor="@color/colorText"
                 android:fontFamily="@font/sourcesanspro_bold"
@@ -53,7 +54,7 @@
                 android:id="@+id/contact_phone"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="PRUEBA"
+                android:text="@{contact.phone, default=Placeholder}"
                 android:textSize="@dimen/normal_text"
                 android:fontFamily="@font/sourcesanspro_light"
                 android:textColor="@color/colorText"
