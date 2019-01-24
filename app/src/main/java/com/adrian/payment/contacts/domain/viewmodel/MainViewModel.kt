@@ -12,12 +12,10 @@ import com.adrian.payment.contacts.usecase.GetDeviceContacts
 import com.adrian.payment.contacts.usecase.GetMarvelContacts
 
 class MainViewModel(getContacts: GetContacts) : BaseViewModel() {
-
     val gamesList: LiveData<PagedList<Contact>>
 
-    val contactsData: MutableLiveData<List<Contact>> = MutableLiveData()
-
-    var position: Int = 0
+    val contactsSelectedData: MutableLiveData<List<Contact>> = MutableLiveData()
+    var contactsSelected: ArrayList<Contact> = ArrayList()
 
     private val pagedListConfig by lazy {
         PagedList.Config.Builder()
@@ -31,21 +29,15 @@ class MainViewModel(getContacts: GetContacts) : BaseViewModel() {
     init {
         val sourceFactory = ContactsPagingDataSourceFactory(disposables, getContacts)
         gamesList = LivePagedListBuilder(sourceFactory, pagedListConfig).build()
+    }
 
-        /*disposables.add(getDeviceContacts.execute()
-                .subscribeOn(Schedulers.io())
-                .observeOn(AndroidSchedulers.mainThread())
-                .subscribe { contacts, _: Throwable? ->
-                    Log.v("CERDO", "Pintamos contactos: $contacts")
-                    contactsData.value = contacts
-                })*/
+    fun addContactSelected(contact: Contact) {
+        contactsSelected.add(contact)
+        contactsSelectedData.value = contactsSelected
+    }
 
-        /*disposables.add(getMarvelContacts.execute()
-                .subscribeOn(Schedulers.io())
-                .observeOn(AndroidSchedulers.mainThread())
-                .subscribe { contacts, _: Throwable? ->
-                    Log.v("CERDO", "Pintamos contactos: $contacts")
-                    contactsData.value = contacts
-                })*/
+    fun removeContactData(contact: Contact) {
+        contactsSelected.remove(contact)
+        contactsSelectedData.value = contactsSelected
     }
 }

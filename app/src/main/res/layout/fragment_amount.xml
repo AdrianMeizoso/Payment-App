@@ -272,7 +272,7 @@
             android:id="@+id/button"
             android:layout_width="0dp"
             android:layout_height="60dp"
-            android:background="@color/payColorBack"
+            android:background="@color/colorAccent"
             android:fontFamily="@font/sourcesanspro_bold"
             android:gravity="center"
             android:onClick="@{(view) -> viewModel.pay(view)}"

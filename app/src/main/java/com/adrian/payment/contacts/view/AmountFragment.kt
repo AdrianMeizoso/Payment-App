@@ -1,5 +1,6 @@
 package com.adrian.payment.contacts.view
 
+import android.content.Context
 import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
@@ -40,8 +41,8 @@ class AmountFragment : Fragment(), KodeinAware {
         return binding.root
     }
 
-    override fun onCreate(savedInstanceState: Bundle?) {
-        super.onCreate(savedInstanceState)
+    override fun onActivityCreated(savedInstanceState: Bundle?) {
+        super.onActivityCreated(savedInstanceState)
 
         amountViewModel.currentAmount.observe(this, Observer {
             binding.amount = it
@@ -54,10 +55,5 @@ class AmountFragment : Fragment(), KodeinAware {
         amountViewModel.showDecimals.observe(this, Observer {
             binding.hasDecimals = it
         })
-    }
-
-    override fun onDestroy() {
-        super.onDestroy()
-        amountViewModel.currentAmount.value = 0
     }
 }

@@ -7,23 +7,32 @@ import androidx.recyclerview.widget.DiffUtil
 import com.adrian.payment.R
 import com.adrian.payment.contacts.domain.model.Contact
 
-class ContactsAdapter : PagedListAdapter<Contact, ContactsViewHolder>(contactDiffCallback) {
+class ContactsAdapter(private val onContactListener: OnContactListener) : PagedListAdapter<Contact, ContactsViewHolder>(contactDiffCallback) {
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ContactsViewHolder {
         return ContactsViewHolder.create(parent)
     }
 
     override fun onBindViewHolder(holder: ContactsViewHolder, position: Int) {
-        val game = getItem(position)
-        holder.itemView.setOnLongClickListener {
-            currentList?.get(position)?.selected = currentList?.get(position)?.selected?.not()!!
+        val contact = getItem(position)
+        contact?.let {contactItem ->
+            holder.itemView.setOnLongClickListener {
+                onContactListener.onLongClickedContactListener(contactItem, position)
+                true
+            }
+            holder.itemView.setOnClickListener {
+                onContactListener.onClickedContactListener(contact, position)
+            }
+            holder.bind(contact, position)
+        }
+    }
+
+    fun setItemSelected(position: Int){
+        val contact = getItem(position)
+        contact?.let { contactItem ->
+            currentList?.get(position)?.selected = contactItem.selected.not()
             notifyItemChanged(position)
-            true
         }
-        holder.itemView.setOnClickListener {
-            it.findNavController().navigate(R.id.action_listFragment_to_amountFragment)
-        }
-        game?.let { holder.bind(game, position) }
     }
 
     companion object {
@@ -36,5 +45,10 @@ class ContactsAdapter : PagedListAdapter<Contact, ContactsViewHolder>(contactDif
                 return oldItem == newItem
             }
         }
+    }
+
+    interface OnContactListener {
+        fun onClickedContactListener(contact: Contact, position: Int)
+        fun onLongClickedContactListener(contact: Contact, position: Int)
     }
 }
