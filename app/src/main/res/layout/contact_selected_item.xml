@@ -35,6 +35,7 @@
             android:id="@+id/game_image"
             android:layout_width="60dp"
             android:layout_height="60dp"
+            android:src="@drawable/ic_sand_watch"
             android:scaleType="centerInside"
             app:circleImageUrl="@{contact.avatarUrl}"
             app:layout_constraintStart_toStartOf="parent"

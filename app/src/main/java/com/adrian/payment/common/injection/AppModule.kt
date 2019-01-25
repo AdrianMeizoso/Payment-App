@@ -14,15 +14,18 @@ import org.kodein.di.generic.singleton
 import retrofit2.Retrofit
 import retrofit2.adapter.rxjava2.RxJava2CallAdapterFactory
 import retrofit2.converter.moshi.MoshiConverterFactory
+import java.util.concurrent.TimeUnit
 
 object Url {
-    //const val BASE_URL = "http://www.speedrun.com/api/v1/"
     const val BASE_URL = "http://gateway.marvel.com/v1/public/"
 }
 
 val appModule = Kodein.Module("App") {
     //bind<OkHttpClient>() with singleton {OkHttpClient()} same as
-    bind() from singleton { OkHttpClient() }
+    bind() from singleton { OkHttpClient.Builder()
+                .connectTimeout(5, TimeUnit.MINUTES) // connect timeout
+                .writeTimeout(5, TimeUnit.MINUTES) // write timeout
+                .readTimeout(5, TimeUnit.MINUTES).build()}
     bind() from singleton {
         Retrofit.Builder()
                 .baseUrl(BASE_URL)

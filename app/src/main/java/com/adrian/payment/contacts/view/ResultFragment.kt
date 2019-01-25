@@ -4,8 +4,10 @@ import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import androidx.core.os.bundleOf
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.ViewModelProviders
+import androidx.navigation.NavOptions
 import androidx.navigation.findNavController
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
@@ -50,7 +52,8 @@ class ResultFragment : Fragment(), KodeinAware {
             contacts_selected_recycler.adapter = contactsAdapter
 
             return_button.setOnClickListener {view ->
-                view.findNavController().navigate(R.id.action_resultFragment_to_listFragment)
+                view.findNavController().navigate(R.id.action_resultFragment_to_listFragment
+                        , bundleOf("init" to true))
             }
         }
     }

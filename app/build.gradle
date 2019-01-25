@@ -2,6 +2,7 @@ apply plugin: 'com.android.application'
 apply plugin: 'kotlin-android'
 apply plugin: 'kotlin-android-extensions'
 apply plugin: 'kotlin-kapt'
+apply plugin: "kotlin-allopen"
 
 android {
     compileSdkVersion 28
@@ -23,6 +24,9 @@ android {
         enabled = true
     }
     productFlavors {
+    }
+    allOpen {
+        annotation('com.adrian.payment.common.Mockable')
     }
 }
 

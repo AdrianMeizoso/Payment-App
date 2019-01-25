@@ -13,16 +13,25 @@
         android:layoutAnimation="@anim/item_list_layout_anim"
         android:visibility="invisible" />
 
+    <ProgressBar
+        android:id="@+id/progress_circular"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:backgroundTint="@color/colorAccent"
+        android:layout_centerInParent="true"
+        android:indeterminate="true" />
+
     <Button
         android:id="@+id/pay_button"
-        android:backgroundTint="@color/colorAccent"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_alignParentBottom="true"
         android:layout_centerHorizontal="true"
         android:layout_marginBottom="16dp"
+        android:backgroundTint="@color/colorAccent"
         android:drawableStart="@drawable/ic_attach_money_black_24dp"
         android:text="@string/pay"
+        android:textColor="@android:color/white"
         android:textSize="@dimen/normal_text"
         android:visibility="gone" />
 

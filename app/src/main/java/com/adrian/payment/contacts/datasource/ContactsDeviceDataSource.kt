@@ -3,9 +3,9 @@ package com.adrian.payment.contacts.datasource
 import android.content.ContentResolver
 import android.content.Context
 import android.provider.ContactsContract
+import com.adrian.payment.common.Mockable
 import com.adrian.payment.contacts.domain.model.Contact
 import io.reactivex.Single
-
 
 class ContactsDeviceDataSource(private val context: Context) : ContactsDataSource {
 

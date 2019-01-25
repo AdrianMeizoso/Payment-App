@@ -15,12 +15,6 @@ buildscript {
     }
 }
 
-apply plugin: "kotlin-allopen"
-
-allOpen {
-    annotation('com.adrian.payment.common.Mockable')
-}
-
 allprojects {
     repositories {
         google()

@@ -5,6 +5,7 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.fragment.app.Fragment
+import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProviders
 import androidx.navigation.findNavController
@@ -42,6 +43,11 @@ class ListFragment : Fragment(), KodeinAware, ContactsAdapter.OnContactListener 
 
     override fun onActivityCreated(savedInstanceState: Bundle?) {
         super.onActivityCreated(savedInstanceState)
+        val init = arguments?.getBoolean("init")
+        init?.let {
+            if (init) initFragment()
+            arguments?.clear()
+        }
         initGamesRecycler()
     }
 
@@ -63,6 +69,12 @@ class ListFragment : Fragment(), KodeinAware, ContactsAdapter.OnContactListener 
 
     //Private methods
 
+    private fun initFragment() {
+        mainViewModel.clearContactSelected()
+        mainViewModel.contactsSelectedData = MutableLiveData()
+        mainViewModel.resetList()
+    }
+
     private fun initGamesRecycler() {
         val linearLayoutManager = LinearLayoutManager(context, RecyclerView.VERTICAL, false)
         adapterContacts = ContactsAdapter(this)
@@ -71,6 +83,7 @@ class ListFragment : Fragment(), KodeinAware, ContactsAdapter.OnContactListener 
         mainViewModel.gamesList.observe(this, Observer {
             adapterContacts.submitList(it)
             if (games_recycler.visibility != View.VISIBLE) games_recycler.visibility = View.VISIBLE
+            progress_circular.visibility = View.GONE
         })
         mainViewModel.contactsSelectedData.observe(this, Observer {
             if (it.isNotEmpty()) pay_button.visibility = View.VISIBLE

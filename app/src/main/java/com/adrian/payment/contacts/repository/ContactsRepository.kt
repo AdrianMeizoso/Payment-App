@@ -1,5 +1,6 @@
 package com.adrian.payment.contacts.repository
 
+import com.adrian.payment.common.Mockable
 import com.adrian.payment.common.md5
 import com.adrian.payment.contacts.datasource.ContactsDataSource
 import com.adrian.payment.contacts.datasource.ContactsDeviceDataSource
@@ -9,6 +10,7 @@ import com.adrian.payment.contacts.domain.model.Contact
 import com.adrian.payment.contacts.domain.model.MarvelResponse
 import io.reactivex.Single
 
+@Mockable
 class ContactsRepository(private val contactsDeviceDataSource: ContactsDataSource,
                          private val heroesApiDataSource: HeroesApiDataSource) {
 
