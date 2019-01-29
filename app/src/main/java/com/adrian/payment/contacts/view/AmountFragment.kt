@@ -1,6 +1,5 @@
 package com.adrian.payment.contacts.view
 
-import android.content.Context
 import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
@@ -8,28 +7,15 @@ import android.view.ViewGroup
 import androidx.databinding.DataBindingUtil
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.Observer
-import androidx.lifecycle.ViewModelProviders
 import com.adrian.payment.R
-import com.adrian.payment.contacts.domain.viewmodel.AmountModelFactory
 import com.adrian.payment.contacts.domain.viewmodel.AmountViewModel
 import com.adrian.payment.databinding.FragmentAmountBinding
-import org.kodein.di.Kodein
-import org.kodein.di.KodeinAware
-import org.kodein.di.android.x.closestKodein
-import org.kodein.di.generic.instance
+import org.koin.androidx.viewmodel.ext.viewModel
 
-class AmountFragment : Fragment(), KodeinAware {
-
-    override val kodein: Kodein by closestKodein()
+class AmountFragment : Fragment() {
 
     lateinit var binding: FragmentAmountBinding
-    private val amountViewModelFactory: AmountModelFactory by instance()
-    private val amountViewModel: AmountViewModel by lazy {
-        activity?.run {
-            ViewModelProviders.of(this, amountViewModelFactory)
-                    .get(AmountViewModel::class.java)
-        } ?: throw Exception("Invalid Activity")
-    }
+    private val amountViewModel: AmountViewModel by viewModel()
 
     override fun onCreateView(
             inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?

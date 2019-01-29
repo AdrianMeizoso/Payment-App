@@ -3,16 +3,16 @@ package com.adrian.payment
 import android.app.Application
 import com.adrian.payment.common.injection.appModule
 import com.adrian.payment.contacts.module.mainModule
-import org.kodein.di.Kodein
-import org.kodein.di.KodeinAware
-import org.kodein.di.generic.bind
-import org.kodein.di.generic.singleton
+import org.koin.android.ext.koin.androidContext
+import org.koin.core.context.startKoin
 
-class PaymentApp : Application(), KodeinAware {
+class PaymentApp : Application() {
 
-    override val kodein = Kodein.lazy {
-        bind() from singleton { applicationContext }
-        import(appModule)
-        import(mainModule)
+    override fun onCreate() {
+        super.onCreate()
+        startKoin {
+            androidContext(this@PaymentApp)
+            modules(appModule, mainModule)
+        }
     }
 }

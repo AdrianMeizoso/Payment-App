@@ -1,21 +1,18 @@
 package com.adrian.payment.contacts.module
 
-import com.adrian.payment.contacts.domain.viewmodel.AmountModelFactory
-import com.adrian.payment.contacts.domain.viewmodel.MainViewModelFactory
+import com.adrian.payment.contacts.domain.viewmodel.AmountViewModel
+import com.adrian.payment.contacts.domain.viewmodel.MainViewModel
 import com.adrian.payment.contacts.usecase.GetContacts
 import com.adrian.payment.contacts.usecase.GetDeviceContacts
 import com.adrian.payment.contacts.usecase.GetMarvelContacts
-import org.kodein.di.Kodein
-import org.kodein.di.generic.bind
-import org.kodein.di.generic.instance
-import org.kodein.di.generic.provider
-import org.kodein.di.generic.singleton
+import org.koin.androidx.viewmodel.dsl.viewModel
+import org.koin.dsl.module
 
-val mainModule = Kodein.Module("Main") {
-    bind() from singleton { GetDeviceContacts(instance())}
-    bind() from singleton { GetMarvelContacts(instance())}
-    bind() from singleton { GetContacts(instance(), instance())}
+val mainModule = module {
+    single { GetDeviceContacts(get()) }
+    single { GetMarvelContacts(get()) }
+    single { GetContacts(get(), get()) }
 
-    bind() from provider { MainViewModelFactory(instance()) }
-    bind() from provider { AmountModelFactory() }
+    viewModel { MainViewModel(get()) }
+    viewModel { AmountViewModel() }
 }

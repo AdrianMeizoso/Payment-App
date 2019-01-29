@@ -15,14 +15,12 @@ data class MarvelData(
         val limit: Int,
         @Json(name = "results") val marvelHeroes: List<MarvelHero>)
 
-@JsonClass(generateAdapter = true)
 data class MarvelHero(
         val id: Int,
         val name: String,
         val description: String,
         val thumbnail: MarvelThumbnail)
 
-@JsonClass(generateAdapter = true)
 data class MarvelThumbnail(
         val path: String,
         val extension: String)

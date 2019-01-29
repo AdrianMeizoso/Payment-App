@@ -6,31 +6,18 @@ import android.view.View
 import android.view.ViewGroup
 import androidx.core.os.bundleOf
 import androidx.fragment.app.Fragment
-import androidx.lifecycle.ViewModelProviders
-import androidx.navigation.NavOptions
 import androidx.navigation.findNavController
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.adrian.payment.R
 import com.adrian.payment.contacts.domain.SelectedContactsAdapter
 import com.adrian.payment.contacts.domain.viewmodel.MainViewModel
-import com.adrian.payment.contacts.domain.viewmodel.MainViewModelFactory
 import kotlinx.android.synthetic.main.fragment_result.*
-import org.kodein.di.KodeinAware
-import org.kodein.di.android.x.closestKodein
-import org.kodein.di.generic.instance
+import org.koin.androidx.viewmodel.ext.sharedViewModel
 
-class ResultFragment : Fragment(), KodeinAware {
+class ResultFragment : Fragment() {
 
-    override val kodein by closestKodein()
-
-    private val mainViewModelFactory: MainViewModelFactory by instance()
-    private val mainViewModel: MainViewModel by lazy {
-        activity?.run {
-            ViewModelProviders.of(this, mainViewModelFactory)
-                    .get(MainViewModel::class.java)
-        } ?: throw Exception("Invalid Activity")
-    }
+    private val mainViewModel: MainViewModel by sharedViewModel()
 
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?,
                               savedInstanceState: Bundle?): View? {
