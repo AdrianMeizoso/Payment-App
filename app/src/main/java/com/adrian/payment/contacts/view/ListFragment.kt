@@ -6,13 +6,12 @@ import android.view.View
 import android.view.ViewGroup
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.MutableLiveData
-import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProviders
 import androidx.navigation.findNavController
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.adrian.payment.R
-import com.adrian.payment.common.setCircleImageUrl
+import com.adrian.payment.common.observe
 import com.adrian.payment.contacts.domain.ContactsAdapter
 import com.adrian.payment.contacts.domain.model.Contact
 import com.adrian.payment.contacts.domain.viewmodel.MainViewModel
@@ -80,15 +79,15 @@ class ListFragment : Fragment(), KodeinAware, ContactsAdapter.OnContactListener 
         adapterContacts = ContactsAdapter(this)
         games_recycler.layoutManager = linearLayoutManager
         games_recycler.adapter = adapterContacts
-        mainViewModel.gamesList.observe(this, Observer {
+        observe(mainViewModel.gamesList) {
             adapterContacts.submitList(it)
             if (games_recycler.visibility != View.VISIBLE) games_recycler.visibility = View.VISIBLE
             progress_circular.visibility = View.GONE
-        })
-        mainViewModel.contactsSelectedData.observe(this, Observer {
+        }
+        observe(mainViewModel.contactsSelectedData) {
             if (it.isNotEmpty()) pay_button.visibility = View.VISIBLE
             else pay_button.visibility = View.GONE
-        })
+        }
         pay_button.setOnClickListener {
             it.findNavController().navigate(R.id.action_listFragment_to_amountFragment)
         }
