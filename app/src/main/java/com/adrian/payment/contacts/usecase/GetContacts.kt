@@ -13,8 +13,9 @@ class GetContacts(private val getMarvelContacts: GetMarvelContacts,
         return Single.zip(getMarvelContacts.execute(offset, sizeList),
                 getDeviceContacts.execute(offset, sizeList),
                 BiFunction<List<Contact>, List<Contact>, List<Contact>> { t1, t2 ->
-                    val listResult = t1 + t2
-                    listResult.sortedBy { contact -> contact.name }
+                    if (t2.isNotEmpty())
+                        (t1 + t2).sortedBy { contact -> contact.name }
+                    else t1
                 })
                 .doOnError {
                     it.printStackTrace()

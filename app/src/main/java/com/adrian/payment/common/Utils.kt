@@ -2,6 +2,9 @@ package com.adrian.payment.common
 
 import android.widget.ImageView
 import androidx.databinding.BindingAdapter
+import androidx.lifecycle.LifecycleOwner
+import androidx.lifecycle.LiveData
+import androidx.lifecycle.Observer
 import com.adrian.payment.R
 import com.adrian.payment.common.injection.GlideApp
 import java.security.MessageDigest
@@ -22,4 +25,8 @@ fun String.md5() : String {
     return digested.joinToString("") {
         String.format("%02x", it)
     }
+}
+
+fun <T : Any, L : LiveData<T>> LifecycleOwner.observe(liveData: L, body: (T) -> Unit) {
+    liveData.observe(this, Observer(body))
 }

@@ -6,8 +6,8 @@ import android.view.View
 import android.view.ViewGroup
 import androidx.databinding.DataBindingUtil
 import androidx.fragment.app.Fragment
-import androidx.lifecycle.Observer
 import com.adrian.payment.R
+import com.adrian.payment.common.observe
 import com.adrian.payment.contacts.domain.viewmodel.AmountViewModel
 import com.adrian.payment.databinding.FragmentAmountBinding
 import org.koin.androidx.viewmodel.ext.viewModel
@@ -30,16 +30,8 @@ class AmountFragment : Fragment() {
     override fun onActivityCreated(savedInstanceState: Bundle?) {
         super.onActivityCreated(savedInstanceState)
 
-        amountViewModel.currentAmount.observe(this, Observer {
-            binding.amount = it
-        })
-
-        amountViewModel.currentDecimals.observe(this, Observer {
-            binding.decimals = it
-        })
-
-        amountViewModel.showDecimals.observe(this, Observer {
-            binding.hasDecimals = it
-        })
+        observe(amountViewModel.currentAmount) { binding.amount = it }
+        observe(amountViewModel.currentDecimals) { binding.decimals = it }
+        observe(amountViewModel.showDecimals) { binding.hasDecimals = it }
     }
 }
