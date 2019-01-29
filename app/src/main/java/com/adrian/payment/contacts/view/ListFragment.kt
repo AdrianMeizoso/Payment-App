@@ -10,6 +10,7 @@ import androidx.navigation.findNavController
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.adrian.payment.R
+import com.adrian.payment.common.NetworkState
 import com.adrian.payment.common.observe
 import com.adrian.payment.contacts.domain.ContactsAdapter
 import com.adrian.payment.contacts.domain.model.Contact
@@ -35,6 +36,26 @@ class ListFragment : Fragment(), ContactsAdapter.OnContactListener {
             arguments?.clear()
         }
         initGamesRecycler()
+
+        observe(mainViewModel.networkState) { state ->
+            when (state){
+                NetworkState.SUCCESS -> progress_circular.visibility = View.GONE
+                NetworkState.LOADING-> progress_circular.visibility = View.VISIBLE
+                else -> {
+                    progress_circular.visibility = View.GONE
+                }
+            }
+        }
+
+        observe(mainViewModel.initialLoaderState) { state ->
+            when (state){
+                NetworkState.SUCCESS -> progress_circular_initial.visibility = View.GONE
+                NetworkState.LOADING-> progress_circular_initial.visibility = View.VISIBLE
+                else -> {
+                    progress_circular_initial.visibility = View.GONE
+                }
+            }
+        }
     }
 
     // ContactsAdapter.OnContactListener
@@ -68,8 +89,8 @@ class ListFragment : Fragment(), ContactsAdapter.OnContactListener {
         games_recycler.adapter = adapterContacts
         observe(mainViewModel.gamesList) {
             adapterContacts.submitList(it)
-            if (games_recycler.visibility != View.VISIBLE) games_recycler.visibility = View.VISIBLE
-            progress_circular.visibility = View.GONE
+            //if (games_recycler.visibility != View.VISIBLE) games_recycler.visibility = View.VISIBLE
+            //progress_circular.visibility = View.GONE
         }
         observe(mainViewModel.contactsSelectedData) {
             if (it.isNotEmpty()) pay_button.visibility = View.VISIBLE

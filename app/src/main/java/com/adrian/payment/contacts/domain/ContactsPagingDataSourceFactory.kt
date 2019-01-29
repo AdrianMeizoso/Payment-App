@@ -10,7 +10,7 @@ class ContactsPagingDataSourceFactory(private val compositeDisposable: Composite
                                       private val getContacts: GetContacts)
     : DataSource.Factory<Int, Contact>() {
 
-    private val usersDataSourceLiveData = MutableLiveData<ContactsPagingDataSource>()
+    val usersDataSourceLiveData = MutableLiveData<ContactsPagingDataSource>()
 
     override fun create(): DataSource<Int, Contact> {
         val contactsPagingDataSource = ContactsPagingDataSource(getContacts, compositeDisposable)

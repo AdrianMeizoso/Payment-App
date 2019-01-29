@@ -10,29 +10,45 @@
         android:id="@+id/games_recycler"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:layoutAnimation="@anim/item_list_layout_anim"
-        android:visibility="invisible" />
+        android:layoutAnimation="@anim/item_list_layout_anim" />
 
     <ProgressBar
-        android:id="@+id/progress_circular"
+        android:id="@+id/progress_circular_initial"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:backgroundTint="@color/colorAccent"
         android:layout_centerInParent="true"
-        android:indeterminate="true" />
+        android:backgroundTint="@color/colorAccent"
+        android:indeterminate="true"
+        android:visibility="gone" />
 
-    <Button
-        android:id="@+id/pay_button"
-        android:layout_width="wrap_content"
+    <LinearLayout
+        android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_alignParentBottom="true"
-        android:layout_centerHorizontal="true"
-        android:layout_marginBottom="16dp"
-        android:backgroundTint="@color/colorAccent"
-        android:drawableStart="@drawable/ic_attach_money_black_24dp"
-        android:text="@string/pay"
-        android:textColor="@android:color/white"
-        android:textSize="@dimen/normal_text"
-        android:visibility="gone" />
+        android:gravity="center_horizontal|bottom"
+        android:orientation="vertical">
+
+        <ProgressBar
+            android:id="@+id/progress_circular"
+            android:layout_width="20dp"
+            android:layout_height="20dp"
+            android:layout_marginBottom="16dp"
+            android:backgroundTint="@color/colorAccent"
+            android:indeterminate="true"
+            android:visibility="gone" />
+
+        <Button
+            android:id="@+id/pay_button"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginBottom="16dp"
+            android:backgroundTint="@color/colorAccent"
+            android:drawableStart="@drawable/ic_attach_money_black_24dp"
+            android:text="@string/pay"
+            android:textColor="@android:color/white"
+            android:textSize="@dimen/normal_text"
+            android:visibility="gone" />
+
+    </LinearLayout>
 
 </RelativeLayout>
