@@ -8,7 +8,7 @@ Android app written in [Kotlin](https://kotlinlang.org) which displays a list of
 * Clean architecture using MVVM
 * Architecture components ([ViewModel](https://developer.android.com/topic/libraries/architecture/viewmodel) and [Livedata](https://developer.android.com/topic/libraries/architecture/livedata)) that allow data to survive configuration changes such as screen rotations
 * [RxJava 2](https://github.com/ReactiveX/RxJava) to extend the observer pattern supporting sequences of data and operations with them. This library makes possible a layered design making the code more testable and clean
-* [Kodein](https://github.com/Kodein-Framework/Kodein-DI) it's a dependency injection framework for Android.
+* [Koin](https://github.com/InsertKoinIO/koin) it's a dependency injection framework for Android.
 * Mockito/Junit for unit tests
 * [Retrofit](https://square.github.io/retrofit/)/[Moshi](https://github.com/square/moshi) handles API calls
 * [Glide](https://github.com/bumptech/glide) to load images and GIF's
