@@ -2,18 +2,14 @@ package com.adrian.payment.contacts.domain.viewmodel
 
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
-import androidx.lifecycle.Observer
 import androidx.lifecycle.Transformations
 import androidx.paging.LivePagedListBuilder
 import androidx.paging.PagedList
-import com.adrian.payment.common.BaseViewModel
-import com.adrian.payment.common.NetworkState
+import com.adrian.payment.common.*
 import com.adrian.payment.contacts.domain.ContactsPagingDataSource.Companion.PAGES_CONTACTS_SIZE
 import com.adrian.payment.contacts.domain.ContactsPagingDataSourceFactory
 import com.adrian.payment.contacts.domain.model.Contact
 import com.adrian.payment.contacts.usecase.GetContacts
-import com.adrian.payment.contacts.usecase.GetDeviceContacts
-import com.adrian.payment.contacts.usecase.GetMarvelContacts
 
 class MainViewModel(private val getContacts: GetContacts) : BaseViewModel() {
 
@@ -47,18 +43,12 @@ class MainViewModel(private val getContacts: GetContacts) : BaseViewModel() {
         gamesList = LivePagedListBuilder(sourceFactory, pagedListConfig).build()
     }
 
-    fun addContactSelected(contact: Contact) {
-        contactsSelected.add(contact)
-        contactsSelectedData.value = contactsSelected
-    }
+    fun addContactSelected(contact: Contact) =
+            contactsSelected.addPostLiveData(contact, contactsSelectedData)
 
-    fun removeContactData(contact: Contact) {
-        contactsSelected.remove(contact)
-        contactsSelectedData.value = contactsSelected
-    }
+    fun removeContactData(contact: Contact) =
+            contactsSelected.removePostLiveData(contact, contactsSelectedData)
 
-    fun clearContactSelected() {
-        contactsSelected.clear()
-        contactsSelectedData.value = contactsSelected
-    }
+    fun clearContactSelected() =
+            contactsSelected.clearPostLiveData(contactsSelectedData)
 }

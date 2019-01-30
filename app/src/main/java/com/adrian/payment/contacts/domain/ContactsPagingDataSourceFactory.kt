@@ -6,8 +6,9 @@ import com.adrian.payment.contacts.domain.model.Contact
 import com.adrian.payment.contacts.usecase.GetContacts
 import io.reactivex.disposables.CompositeDisposable
 
-class ContactsPagingDataSourceFactory(private val compositeDisposable: CompositeDisposable,
-                                      private val getContacts: GetContacts)
+class ContactsPagingDataSourceFactory(
+        private val compositeDisposable: CompositeDisposable,
+        private val getContacts: GetContacts)
     : DataSource.Factory<Int, Contact>() {
 
     val usersDataSourceLiveData = MutableLiveData<ContactsPagingDataSource>()

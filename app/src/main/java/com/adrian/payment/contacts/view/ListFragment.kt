@@ -35,6 +35,7 @@ class ListFragment : Fragment(), ContactsAdapter.OnContactListener {
             if (init) initFragment()
             arguments?.clear()
         }
+
         initGamesRecycler()
 
         observe(mainViewModel.networkState) { state ->
