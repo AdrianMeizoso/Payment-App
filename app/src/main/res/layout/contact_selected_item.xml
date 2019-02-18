@@ -10,7 +10,7 @@
 
         <variable
             name="amount"
-            type="Float" />
+            type="String" />
 
         <variable
             name="contact"
@@ -85,7 +85,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginBottom="8dp"
-            android:text="@{amount.toString() + `€`}"
+            android:text="@{amount}"
             android:fontFamily="@font/sourcesanspro_regular"
             android:textColor="@color/colorPrimary"
             android:textSize="@dimen/normal_text"

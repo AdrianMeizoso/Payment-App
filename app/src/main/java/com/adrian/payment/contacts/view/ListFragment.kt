@@ -4,6 +4,7 @@ import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.view.animation.AnimationUtils
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.MutableLiveData
 import androidx.navigation.findNavController
@@ -30,6 +31,7 @@ class ListFragment : Fragment(), ContactsAdapter.OnContactListener {
 
     override fun onActivityCreated(savedInstanceState: Bundle?) {
         super.onActivityCreated(savedInstanceState)
+
         val init = arguments?.getBoolean("init")
         init?.let {
             if (init) initFragment()
@@ -41,7 +43,7 @@ class ListFragment : Fragment(), ContactsAdapter.OnContactListener {
         observe(mainViewModel.networkState) { state ->
             when (state){
                 NetworkState.SUCCESS -> progress_circular.visibility = View.GONE
-                NetworkState.LOADING-> progress_circular.visibility = View.VISIBLE
+                NetworkState.LOADING -> progress_circular.visibility = View.VISIBLE
                 else -> {
                     progress_circular.visibility = View.GONE
                 }
@@ -50,8 +52,10 @@ class ListFragment : Fragment(), ContactsAdapter.OnContactListener {
 
         observe(mainViewModel.initialLoaderState) { state ->
             when (state){
-                NetworkState.SUCCESS -> progress_circular_initial.visibility = View.GONE
-                NetworkState.LOADING-> progress_circular_initial.visibility = View.VISIBLE
+                NetworkState.SUCCESS -> {
+                    progress_circular_initial.visibility = View.GONE
+                }
+                NetworkState.LOADING -> progress_circular_initial.visibility = View.VISIBLE
                 else -> {
                     progress_circular_initial.visibility = View.GONE
                 }
@@ -88,10 +92,10 @@ class ListFragment : Fragment(), ContactsAdapter.OnContactListener {
         adapterContacts = ContactsAdapter(this)
         games_recycler.layoutManager = linearLayoutManager
         games_recycler.adapter = adapterContacts
+        games_recycler.layoutAnimation = AnimationUtils.loadLayoutAnimation(context,
+                R.anim.item_list_layout_anim)
         observe(mainViewModel.gamesList) {
             adapterContacts.submitList(it)
-            //if (games_recycler.visibility != View.VISIBLE) games_recycler.visibility = View.VISIBLE
-            //progress_circular.visibility = View.GONE
         }
         observe(mainViewModel.contactsSelectedData) {
             if (it.isNotEmpty()) pay_button.visibility = View.VISIBLE

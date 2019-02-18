@@ -7,6 +7,15 @@
     android:orientation="vertical"
     tools:context=".contacts.view.MainActivity">
 
+    <androidx.appcompat.widget.Toolbar
+        android:id="@+id/my_toolbar"
+        android:layout_width="match_parent"
+        android:layout_height="?attr/actionBarSize"
+        android:background="?attr/colorPrimaryDark"
+        android:elevation="4dp"
+        android:theme="@style/ThemeOverlay.AppCompat.Dark.ActionBar"
+        app:popupTheme="@style/ThemeOverlay.AppCompat.Light"/>
+
     <fragment
         android:id="@+id/my_nav_host_fragment"
         android:name="androidx.navigation.fragment.NavHostFragment"

@@ -9,8 +9,7 @@
     <androidx.recyclerview.widget.RecyclerView
         android:id="@+id/games_recycler"
         android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:layoutAnimation="@anim/item_list_layout_anim" />
+        android:layout_height="match_parent" />
 
     <ProgressBar
         android:id="@+id/progress_circular_initial"

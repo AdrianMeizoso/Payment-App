@@ -16,7 +16,7 @@ class ContactsSelectedViewHolder(private val binding: ContactSelectedItemBinding
         }
     }
 
-    fun bind(contact: Contact, position: Int, amount: Float) {
+    fun bind(contact: Contact, position: Int, amount: String) {
         binding.amount = amount
         binding.contact = contact
         binding.elemPos = position

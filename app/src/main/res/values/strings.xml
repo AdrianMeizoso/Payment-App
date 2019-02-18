@@ -9,5 +9,9 @@
     <string name="amount_title">Amount</string>
     <string name="contacts_title">Contacts</string>
     <string name="home_button">Return to home</string>
+    <string name="amount_format">%.2$f€</string>
 
+    <string name="fragment_contacts_title">Select contacts</string>
+    <string name="fragment_amount_title">Select amount</string>
+    <string name="fragment_result_title">See result</string>
 </resources>

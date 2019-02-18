@@ -7,7 +7,7 @@
     <fragment
         android:id="@+id/listFragment"
         android:name="com.adrian.payment.contacts.view.ListFragment"
-        android:label="fragment_list"
+        android:label="@string/fragment_contacts_title"
         tools:layout="@layout/fragment_list">
         <action
             android:id="@+id/action_listFragment_to_amountFragment"
@@ -20,7 +20,7 @@
     <fragment
         android:id="@+id/amountFragment"
         android:name="com.adrian.payment.contacts.view.AmountFragment"
-        android:label="AmountFragment" >
+        android:label="@string/fragment_amount_title" >
         <action
             android:id="@+id/action_amountFragment_to_resultFragment"
             app:destination="@id/resultFragment"
@@ -32,7 +32,7 @@
     <fragment
         android:id="@+id/resultFragment"
         android:name="com.adrian.payment.contacts.view.ResultFragment"
-        android:label="fragment_result"
+        android:label="@string/fragment_result_title"
         tools:layout="@layout/fragment_result" >
         <action
             android:id="@+id/action_resultFragment_to_listFragment"

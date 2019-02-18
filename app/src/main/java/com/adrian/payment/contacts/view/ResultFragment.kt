@@ -21,7 +21,6 @@ class ResultFragment : Fragment() {
 
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?,
                               savedInstanceState: Bundle?): View? {
-        // Inflate the layout for this fragment
         return inflater.inflate(R.layout.fragment_result, container, false)
     }
 
@@ -31,10 +30,11 @@ class ResultFragment : Fragment() {
         val amount = arguments?.getFloat("amount")
         amount?.let {
             amount_text.text = String.format("%.2f€", it)
+            val amountFormatted =
+                    String.format("%.2f€", amount/mainViewModel.contactsSelected.size.toFloat())
 
             val linearLayoutManager = LinearLayoutManager(context, RecyclerView.VERTICAL, false)
-            val contactsAdapter = SelectedContactsAdapter(mainViewModel.contactsSelected,
-                    amount/mainViewModel.contactsSelected.size.toFloat())
+            val contactsAdapter = SelectedContactsAdapter(mainViewModel.contactsSelected, amountFormatted)
             contacts_selected_recycler.layoutManager = linearLayoutManager
             contacts_selected_recycler.adapter = contactsAdapter
 
