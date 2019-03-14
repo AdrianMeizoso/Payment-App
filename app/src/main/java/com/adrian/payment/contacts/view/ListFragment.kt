@@ -32,12 +32,6 @@ class ListFragment : Fragment(), ContactsAdapter.OnContactListener {
     override fun onActivityCreated(savedInstanceState: Bundle?) {
         super.onActivityCreated(savedInstanceState)
 
-        val init = arguments?.getBoolean("init")
-        init?.let {
-            if (init) initFragment()
-            arguments?.clear()
-        }
-
         initGamesRecycler()
 
         observe(mainViewModel.networkState) { state ->

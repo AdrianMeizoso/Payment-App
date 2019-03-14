@@ -38,9 +38,8 @@ class ResultFragment : Fragment() {
             contacts_selected_recycler.layoutManager = linearLayoutManager
             contacts_selected_recycler.adapter = contactsAdapter
 
-            return_button.setOnClickListener {view ->
-                view.findNavController().navigate(R.id.action_resultFragment_to_listFragment
-                        , bundleOf("init" to true))
+            return_button.setOnClickListener { view ->
+                view.findNavController().navigate(R.id.action_resultFragment_to_listFragment)
             }
         }
     }

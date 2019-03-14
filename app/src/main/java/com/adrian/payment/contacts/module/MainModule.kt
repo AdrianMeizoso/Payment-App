@@ -9,9 +9,9 @@ import org.koin.androidx.viewmodel.dsl.viewModel
 import org.koin.dsl.module
 
 val mainModule = module {
-    single { GetDeviceContacts(get()) }
-    single { GetMarvelContacts(get()) }
-    single { GetContacts(get(), get()) }
+    factory { GetDeviceContacts(get()) }
+    factory { GetMarvelContacts(get()) }
+    factory { GetContacts(get(), get()) }
 
     viewModel { MainViewModel(get()) }
     viewModel { AmountViewModel() }
