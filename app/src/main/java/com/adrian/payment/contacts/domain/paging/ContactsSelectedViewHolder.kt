@@ -1,4 +1,4 @@
-package com.adrian.payment.contacts.domain
+package com.adrian.payment.contacts.domain.paging
 
 import android.view.LayoutInflater
 import android.view.ViewGroup

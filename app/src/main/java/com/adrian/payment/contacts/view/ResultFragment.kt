@@ -4,13 +4,12 @@ import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import androidx.core.os.bundleOf
 import androidx.fragment.app.Fragment
 import androidx.navigation.findNavController
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.adrian.payment.R
-import com.adrian.payment.contacts.domain.SelectedContactsAdapter
+import com.adrian.payment.contacts.domain.paging.SelectedContactsAdapter
 import com.adrian.payment.contacts.domain.viewmodel.MainViewModel
 import kotlinx.android.synthetic.main.fragment_result.*
 import org.koin.androidx.viewmodel.ext.sharedViewModel

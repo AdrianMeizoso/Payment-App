@@ -6,8 +6,8 @@ import androidx.paging.Config
 import androidx.paging.PagedList
 import androidx.paging.toLiveData
 import com.adrian.payment.common.*
-import com.adrian.payment.contacts.domain.ContactsPagingDataSource.Companion.PAGES_CONTACTS_SIZE
-import com.adrian.payment.contacts.domain.ContactsPagingDataSourceFactory
+import com.adrian.payment.contacts.domain.paging.ContactsPagingDataSource.Companion.PAGES_CONTACTS_SIZE
+import com.adrian.payment.contacts.domain.paging.ContactsPagingDataSourceFactory
 import com.adrian.payment.contacts.domain.model.Contact
 import com.adrian.payment.contacts.state.ContactListState
 import com.adrian.payment.contacts.usecase.GetContacts

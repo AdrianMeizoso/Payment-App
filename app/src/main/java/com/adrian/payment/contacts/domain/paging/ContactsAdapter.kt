@@ -1,10 +1,8 @@
-package com.adrian.payment.contacts.domain
+package com.adrian.payment.contacts.domain.paging
 
 import android.view.ViewGroup
-import androidx.navigation.findNavController
 import androidx.paging.PagedListAdapter
 import androidx.recyclerview.widget.DiffUtil
-import com.adrian.payment.R
 import com.adrian.payment.contacts.domain.model.Contact
 
 class ContactsAdapter(private val onContactListener: OnContactListener) : PagedListAdapter<Contact, ContactsViewHolder>(contactDiffCallback) {

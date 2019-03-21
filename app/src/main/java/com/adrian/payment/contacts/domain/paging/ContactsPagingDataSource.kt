@@ -1,11 +1,9 @@
-package com.adrian.payment.contacts.domain
+package com.adrian.payment.contacts.domain.paging
 
 import androidx.lifecycle.MutableLiveData
 import androidx.paging.PageKeyedDataSource
-import androidx.paging.PagedList
 import com.adrian.payment.common.NetworkState
 import com.adrian.payment.contacts.domain.model.Contact
-import com.adrian.payment.contacts.state.ContactListState
 import com.adrian.payment.contacts.usecase.GetContacts
 import io.reactivex.android.schedulers.AndroidSchedulers
 import io.reactivex.disposables.CompositeDisposable

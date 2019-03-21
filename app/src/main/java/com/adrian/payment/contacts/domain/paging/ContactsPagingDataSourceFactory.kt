@@ -1,4 +1,4 @@
-package com.adrian.payment.contacts.domain
+package com.adrian.payment.contacts.domain.paging
 
 import androidx.lifecycle.MutableLiveData
 import androidx.paging.DataSource

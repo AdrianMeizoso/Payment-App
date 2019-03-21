@@ -12,7 +12,7 @@ import androidx.recyclerview.widget.RecyclerView
 import com.adrian.payment.R
 import com.adrian.payment.common.NetworkState
 import com.adrian.payment.common.observe
-import com.adrian.payment.contacts.domain.ContactsAdapter
+import com.adrian.payment.contacts.domain.paging.ContactsAdapter
 import com.adrian.payment.contacts.domain.model.Contact
 import com.adrian.payment.contacts.domain.viewmodel.MainViewModel
 import com.adrian.payment.contacts.state.ContactListState
