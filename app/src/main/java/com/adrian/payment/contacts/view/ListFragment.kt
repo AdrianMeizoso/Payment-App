@@ -6,7 +6,6 @@ import android.view.View
 import android.view.ViewGroup
 import android.view.animation.AnimationUtils
 import androidx.fragment.app.Fragment
-import androidx.lifecycle.MutableLiveData
 import androidx.navigation.findNavController
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
@@ -16,6 +15,7 @@ import com.adrian.payment.common.observe
 import com.adrian.payment.contacts.domain.ContactsAdapter
 import com.adrian.payment.contacts.domain.model.Contact
 import com.adrian.payment.contacts.domain.viewmodel.MainViewModel
+import com.adrian.payment.contacts.state.ContactListState
 import kotlinx.android.synthetic.main.fragment_list.*
 import org.koin.androidx.viewmodel.ext.sharedViewModel
 
@@ -34,25 +34,50 @@ class ListFragment : Fragment(), ContactsAdapter.OnContactListener {
 
         initGamesRecycler()
 
-        observe(mainViewModel.networkState) { state ->
-            when (state){
-                NetworkState.SUCCESS -> progress_circular.visibility = View.GONE
-                NetworkState.LOADING -> progress_circular.visibility = View.VISIBLE
-                else -> {
+        observe(mainViewModel.state) { mainViewModelState ->
+            when (mainViewModelState) {
+                is ContactListState.MainLoading -> {
+                    progress_circular_initial.visibility = View.VISIBLE
+                }
+                is ContactListState.MainLoadSuccess -> {
+                    progress_circular_initial.visibility = View.GONE
+                    pay_button.visibility = View.GONE
+                }
+                is ContactListState.MainLoadError -> {
+                    progress_circular_initial.visibility = View.GONE
+                }
+                is ContactListState.SecondLoading -> {
+                    progress_circular.visibility = View.VISIBLE
+                }
+                is ContactListState.SecondLoadSuccess -> {
                     progress_circular.visibility = View.GONE
                 }
+                is ContactListState.SecondLoadError -> {
+                    progress_circular.visibility = View.GONE
+                }
+                is ContactListState.Selecting -> {
+                    pay_button.visibility = View.VISIBLE
+                }
+                is ContactListState.RePainting -> {
+                    adapterContacts.setItemSelected(mainViewModelState.newPosContact)
+                    mainViewModel.onRepainting()
+                }
+            }
+        }
+
+        observe(mainViewModel.networkState) { state ->
+            when (state){
+                is NetworkState.Loading -> mainViewModel.onLoadingSecondNetworkState()
+                is NetworkState.Success -> mainViewModel.onSuccessSecondNetworkState()
+                is NetworkState.Error -> mainViewModel.onErrorSecondNetworkState(state.throwable)
             }
         }
 
         observe(mainViewModel.initialLoaderState) { state ->
             when (state){
-                NetworkState.SUCCESS -> {
-                    progress_circular_initial.visibility = View.GONE
-                }
-                NetworkState.LOADING -> progress_circular_initial.visibility = View.VISIBLE
-                else -> {
-                    progress_circular_initial.visibility = View.GONE
-                }
+                is NetworkState.Loading -> mainViewModel.onLoadingMainNetworkState()
+                is NetworkState.Success -> mainViewModel.onSuccessMainNetworkState()
+                is NetworkState.Error -> mainViewModel.onErrorMainNetworkState(state.throwable)
             }
         }
     }
@@ -60,26 +85,14 @@ class ListFragment : Fragment(), ContactsAdapter.OnContactListener {
     // ContactsAdapter.OnContactListener
 
     override fun onClickedContactListener(contact: Contact, position: Int) {
-        if (mainViewModel.contactsSelected.isNotEmpty()) {
-            if (contact.selected) mainViewModel.removeContactData(contact)
-            else mainViewModel.addContactSelected(contact)
-            adapterContacts.setItemSelected(position)
-        }
+        mainViewModel.onClickedContactListener(contact, position)
     }
 
     override fun onLongClickedContactListener(contact: Contact, position: Int) {
-        if (contact.selected) mainViewModel.removeContactData(contact)
-        else mainViewModel.addContactSelected(contact)
-        adapterContacts.setItemSelected(position)
+        mainViewModel.onLongContactClicked(contact, position)
     }
 
     //Private methods
-
-    private fun initFragment() {
-        mainViewModel.clearContactSelected()
-        mainViewModel.contactsSelectedData = MutableLiveData()
-        mainViewModel.resetList()
-    }
 
     private fun initGamesRecycler() {
         val linearLayoutManager = LinearLayoutManager(context, RecyclerView.VERTICAL, false)
@@ -90,10 +103,6 @@ class ListFragment : Fragment(), ContactsAdapter.OnContactListener {
                 R.anim.item_list_layout_anim)
         observe(mainViewModel.gamesList) {
             adapterContacts.submitList(it)
-        }
-        observe(mainViewModel.contactsSelectedData) {
-            if (it.isNotEmpty()) pay_button.visibility = View.VISIBLE
-            else pay_button.visibility = View.GONE
         }
         pay_button.setOnClickListener {
             it.findNavController().navigate(R.id.action_listFragment_to_amountFragment)

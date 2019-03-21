@@ -15,7 +15,7 @@ class ContactsAdapter(private val onContactListener: OnContactListener) : PagedL
 
     override fun onBindViewHolder(holder: ContactsViewHolder, position: Int) {
         val contact = getItem(position)
-        contact?.let {contactItem ->
+        contact?.let { contactItem ->
             holder.itemView.setOnLongClickListener {
                 onContactListener.onLongClickedContactListener(contactItem, position)
                 true
@@ -27,11 +27,18 @@ class ContactsAdapter(private val onContactListener: OnContactListener) : PagedL
         }
     }
 
-    fun setItemSelected(position: Int){
+    fun setItemSelected(position: Int) {
         val contact = getItem(position)
         contact?.let { contactItem ->
             currentList?.get(position)?.selected = contactItem.selected.not()
             notifyItemChanged(position)
+        }
+    }
+
+    fun setItemSelected(contact: Contact) {
+        currentList?.indexOf(contact)?.let {
+            currentList?.set(it, contact.copy(selected = contact.selected.not()))
+            notifyItemChanged(it)
         }
     }
 

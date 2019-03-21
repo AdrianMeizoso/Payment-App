@@ -1,7 +1,6 @@
 package com.adrian.payment.contacts.domain.viewmodel
 
 import androidx.lifecycle.LiveData
-import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.Transformations
 import androidx.paging.Config
 import androidx.paging.PagedList
@@ -10,12 +9,12 @@ import com.adrian.payment.common.*
 import com.adrian.payment.contacts.domain.ContactsPagingDataSource.Companion.PAGES_CONTACTS_SIZE
 import com.adrian.payment.contacts.domain.ContactsPagingDataSourceFactory
 import com.adrian.payment.contacts.domain.model.Contact
+import com.adrian.payment.contacts.state.ContactListState
 import com.adrian.payment.contacts.usecase.GetContacts
 
-class MainViewModel(private val getContacts: GetContacts) : BaseViewModel() {
+class MainViewModel(private val getContacts: GetContacts) : BaseViewModel<ContactListState>() {
 
     lateinit var gamesList: LiveData<PagedList<Contact>>
-    var contactsSelectedData: MutableLiveData<List<Contact>> = MutableLiveData()
     var contactsSelected: ArrayList<Contact> = ArrayList()
     lateinit var networkState: LiveData<NetworkState>
     lateinit var initialLoaderState: LiveData<NetworkState>
@@ -31,7 +30,7 @@ class MainViewModel(private val getContacts: GetContacts) : BaseViewModel() {
         resetList()
     }
 
-    fun resetList() {
+    private fun resetList() {
         val sourceFactory = ContactsPagingDataSourceFactory(disposables, getContacts)
         networkState = Transformations.switchMap(sourceFactory.usersDataSourceLiveData) {
             it.networkStateData
@@ -42,12 +41,45 @@ class MainViewModel(private val getContacts: GetContacts) : BaseViewModel() {
         gamesList = sourceFactory.toLiveData(pagedListConfig)
     }
 
-    fun addContactSelected(contact: Contact) =
-            contactsSelected.addPostLiveData(contact, contactsSelectedData)
+    //State changes from view
 
-    fun removeContactData(contact: Contact) =
-            contactsSelected.removePostLiveData(contact, contactsSelectedData)
+    fun onLoadingSecondNetworkState() {
+        state.value = ContactListState.SecondLoading
+    }
 
-    fun clearContactSelected() =
-            contactsSelected.clearPostLiveData(contactsSelectedData)
+    fun onErrorSecondNetworkState(throwable: Throwable) {
+        state.value = ContactListState.SecondLoadError(throwable)
+    }
+
+    fun onSuccessSecondNetworkState() {
+        state.value = ContactListState.SecondLoadSuccess
+    }
+
+    fun onLoadingMainNetworkState() {
+        state.value = ContactListState.MainLoading
+    }
+
+    fun onSuccessMainNetworkState() {
+        state.value = ContactListState.MainLoadSuccess
+    }
+
+    fun onErrorMainNetworkState(throwable: Throwable) {
+        state.value = ContactListState.MainLoadError(throwable)
+    }
+
+    fun onClickedContactListener(contact: Contact, position: Int) {
+        if (contactsSelected.isNotEmpty()) onLongContactClicked(contact, position)
+        else state.value = ContactListState.MainLoadSuccess
+    }
+
+    fun onLongContactClicked(contact: Contact, position: Int){
+        if (contact.selected) contactsSelected.remove(contact)
+        else contactsSelected.add(contact)
+        state.value = ContactListState.RePainting(position)
+    }
+
+    fun onRepainting(){
+        if (contactsSelected.isNotEmpty()) state.value = ContactListState.Selecting
+        else state.value = ContactListState.MainLoadSuccess
+    }
 }

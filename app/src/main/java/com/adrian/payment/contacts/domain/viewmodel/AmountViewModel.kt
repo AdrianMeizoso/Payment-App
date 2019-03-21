@@ -6,8 +6,10 @@ import androidx.lifecycle.MutableLiveData
 import androidx.navigation.findNavController
 import com.adrian.payment.R
 import com.adrian.payment.common.BaseViewModel
+import com.adrian.payment.common.VoidState
+import com.adrian.payment.contacts.state.ContactListState
 
-class AmountViewModel : BaseViewModel() {
+class AmountViewModel : BaseViewModel<VoidState>() {
 
     val currentAmount: MutableLiveData<Int> = MutableLiveData()
     val currentDecimals: MutableLiveData<String> = MutableLiveData()
